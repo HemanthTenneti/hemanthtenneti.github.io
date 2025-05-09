@@ -169,7 +169,7 @@ export default function HomePage() {
 
   return (
     <ReactLenis root>
-      <header className="flex h-[80vh] w-full px-30">
+      <header className="flex h-[80vh] w-full px-12 md:px-30">
         <img
           src="/circleglow.png"
           alt="Circle Glow"
@@ -190,7 +190,7 @@ export default function HomePage() {
             <h1 className="heading-text text-8xl text-[#20201E] font-bold">
               hi! i&apos;m hemanth
             </h1>
-            <h2 className="text-6xl md:w-full md:text-center lg:text-right font-bold heading-subtext">
+            <h2 className="text-6xl hidden sm:block md:w-full md:text-center lg:text-right font-bold heading-subtext">
               a passion for coding
               <br /> with an insatiable curiosity
               <br />
@@ -225,7 +225,7 @@ export default function HomePage() {
             {"PROJECTS・".repeat(1000)}
           </marquee>
         </div>
-        <div className="flex items-center justify-center gap-10 px-20 py-20 pb-5 z-20">
+        <div className="flex items-center justify-center gap-10 px-10 lg:px-20 py-20 pb-5 z-20">
           <button
             onClick={prevProject}
             className="p-5 rounded-lg bg-[#F5EAD5] hover:bg-[#e5d9c4] transition-colors cursor-pointer z-10">
@@ -235,7 +235,7 @@ export default function HomePage() {
               viewBox="0 0 24 24"
               strokeWidth="1.5"
               stroke="#000"
-              className="size-6">
+              className="size-3 lg:size-6">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -261,7 +261,7 @@ export default function HomePage() {
               viewBox="0 0 24 24"
               strokeWidth="1.5"
               stroke="#000"
-              className="size-6">
+              className="size-3 lg:size-6">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -283,27 +283,27 @@ export default function HomePage() {
         </div>
       </section>
       <section id="contact" className="relative">
-        <div className="absolute top-0 left-0 h-full  bg-[url(/backgroundnoise.png)] mix-blend-soft-light opacity-75 w-full"></div>
+        <div className="absolute top-0 left-0 h-full bg-[url(/backgroundnoise.png)] mix-blend-soft-light opacity-75 w-full"></div>
         <div className="mx-6 rounded-t-4xl px-12 pt-12 overflow-hidden flex flex-col items-center justify-center border-1 border-b-0 border-[#F5EAD5]">
           <h1 className="text-4xl font-bold mb-18">contact</h1>
 
           <div className="flex flex-col items-center justify-center gap-5 lowercase mb-20">
-            <div className="flex text-2xl justify-between items-center font-medium w-[800px] gap-10">
+            <div className="flex text-2xl justify-between items-center font-mediu w-[500px] lg:w-[800px] gap-10">
               <h1>email</h1>
               <div className="flex-grow border-[#F5EAD5] border-t-2 border-dotted"></div>
               <h1>hemanth10etii@gmail.com</h1>
             </div>
-            <div className="flex text-2xl justify-between items-center font-medium w-[800px] gap-10">
+            <div className="flex text-2xl justify-between items-center font-medium w-[500px] lg:w-[800px] gap-10">
               <h1>github</h1>
               <div className="flex-grow border-[#F5EAD5] border-t-2 border-dotted"></div>
               <h1>HemanthTenneti</h1>
             </div>
-            <div className="flex text-2xl justify-between items-center font-medium w-[800px] gap-10">
+            <div className="flex text-2xl justify-between items-center font-medium w-[500px] lg:w-[800px] gap-10">
               <h1>linkedin</h1>
               <div className="flex-grow border-[#F5EAD5] border-t-2 border-dotted"></div>
               <h1>hemanth10eti</h1>
             </div>
-            <div className="flex text-2xl justify-between items-center font-medium w-[800px] gap-10">
+            <div className="flex text-2xl justify-between items-center font-medium w-[500px] lg:w-[800px] gap-10">
               <h1>twitter/x</h1>
               <div className="flex-grow border-[#F5EAD5] border-t-2 border-dotted"></div>
               <h1>@HemanthTenneti</h1>
@@ -311,7 +311,7 @@ export default function HomePage() {
           </div>
           <footer className="relative pb-5">
             <hr className="w-[90vw] mb-5 mx-auto"></hr>
-            <div className="flex justify-between mx-24 lowercase text-2xl font-bold">
+            <div className="flex justify-between mx-16 lg:mx-24 lowercase text-m lg:text-2xl font-bold">
               <h1>© 2025 Hemanth Tenneti.</h1>
               <div className="links flex gap-5 z-10 text-[#F5EAD5]">
                 <a href="https://github.com/HemanthTenneti" target="_blank">
