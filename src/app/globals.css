@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Switzer";
+  src: url(./fonts/Switzer-Variable.woff2) format("woff2");
+  font-weight: 400 900;
+  font-display: swap;
+  font-style: normal;
+}
+
+.heading-text {
+  text-shadow: 1px 1px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff,
+    -1px 1px 0 #fff;
+}
