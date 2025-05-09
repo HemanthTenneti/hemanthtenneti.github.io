@@ -1,7 +1,11 @@
 "use client";
 import { useState, useEffect } from "react";
 import { ReactLenis, useLenis } from "lenis/react";
-
+import { useGSAP } from "@gsap/react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { SplitText } from "gsap/SplitText";
+gsap.registerPlugin(ScrollTrigger);
 export default function HomePage() {
   const [showScrollTop, setShowScrollTop] = useState(false);
 
@@ -50,6 +54,43 @@ export default function HomePage() {
     };
   }, []);
 
+  useGSAP(() => {
+    const headingSplit = new SplitText(".heading-text");
+    const headingSubtext = new SplitText(".heading-subtext");
+    const aboutText = new SplitText(".about-text");
+    const navbar = document.getElementById("navbar");
+    const tl = gsap.timeline();
+    tl.from(navbar, {
+      duration: 1,
+      opacity: 0,
+      y: -10,
+      ease: "power2.EaseInOut",
+    });
+    tl.from(headingSplit.chars, {
+      duration: 0.05,
+      opacity: 0,
+      y: 10,
+      stagger: 0.1,
+      ease: "power2.EaseInOut",
+    });
+    tl.from(headingSubtext.words, {
+      duration: 0.5,
+      opacity: 0,
+      y: -10,
+      delay: 1,
+      stagger: 0.1,
+      ease: "power2.EaseInOut",
+    });
+    tl.from(aboutText.words, {
+      duration: 0.05,
+      opacity: 0,
+      y: -10,
+      delay: 0,
+      stagger: 0.1,
+      ease: "power2.EaseInOut",
+    });
+  });
+
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
   const lenis = useLenis(({ scroll }) => {});
   return (
@@ -65,12 +106,16 @@ export default function HomePage() {
           alt="Ray Glow"
           className="absolute top-0 right-0 -z-20 object-cover"
         />
-        <img className="" src="/hemanthpfp.png" alt="Hemant" />
+        <img
+          className="header-image"
+          src="/hemanthpfp.png"
+          alt="Hemanth's Picture"
+        />
         <div className="flex flex-col flex-grow justify-center items-end">
           <h1 className="heading-text text-right text-8xl text-[#20201E] font-bold">
             hi! i&apos;m hemanth
           </h1>
-          <h2 className="text-6xl text-right font-bold">
+          <h2 className="text-6xl text-right font-bold heading-subtext">
             a passion for coding
             <br /> with an insatiable curiosity
             <br />
@@ -78,11 +123,9 @@ export default function HomePage() {
           </h2>
         </div>
       </header>
-      <section
-        id="about"
-        className="rounded-t-2xl p-[96px] bg-[#2C2C2C] relative">
+      <section id="about" className="p-[96px] bg-[#2C2C2C] relative">
         <div className="absolute top-0 left-0 h-full  bg-[url(/backgroundnoise.png)] mix-blend-soft-light opacity-75 w-full"></div>
-        <h3 className="text-4xl text-center font-bold text-[#F5EAD5] relative z-10 lowercase">
+        <h3 className="about-text text-4xl text-center font-bold text-[#F5EAD5] relative z-10 lowercase">
           Driven by music and a love for clean, purposeful code, I enjoy
           <br></br>
           building creative and efficient tech solutions. From automation to
@@ -110,52 +153,52 @@ export default function HomePage() {
       </section>
       <section id="contact" className="relative">
         <div className="absolute top-0 left-0 h-full  bg-[url(/backgroundnoise.png)] mix-blend-soft-light opacity-75 w-full"></div>
-        <div className="mx-6 rounded-t-4xl p-12 overflow-hidden flex flex-col items-center justify-center border-2 border-b-0 border-[#F5EAD5]">
-          <h1 className="text-4xl font-bold mb-5">contact</h1>
+        <div className="mx-6 rounded-t-4xl px-12 pt-12 overflow-hidden flex flex-col items-center justify-center border-1 border-b-0 border-[#F5EAD5]">
+          <h1 className="text-4xl font-bold mb-18">contact</h1>
 
-          <div className="flex flex-col items-center justify-center gap-5 lowercase">
-            <div className="flex text-2xl justify-between font-medium gap-96">
+          <div className="flex flex-col items-center justify-center gap-5 lowercase mb-20">
+            <div className="flex text-2xl justify-between items-center font-medium w-[800px] gap-10">
               <h1>email</h1>
+              <div className="flex-grow w-full border-[#F5EAD5] border-t-2 border-dotted"></div>
               <h1>hemanth10etii@gmail.com</h1>
             </div>
-            <div className="flex text-2xl justify-between font-medium gap-96">
+            <div className="flex text-2xl justify-between items-center font-medium w-[800px] gap-10">
               <h1>github</h1>
+              <div className="flex-grow w-full border-[#F5EAD5] border-t-2 border-dotted"></div>
               <h1>HemanthTenneti</h1>
             </div>
-            <div className="flex text-2xl justify-between font-medium gap-96">
+            <div className="flex text-2xl justify-between items-center font-medium w-[800px] gap-10">
               <h1>linkedin</h1>
+              <div className="flex-grow w-full border-[#F5EAD5] border-t-2 border-dotted"></div>
               <h1>hemanth10eti</h1>
             </div>
-            <div className="flex text-2xl justify-between font-medium gap-96">
+            <div className="flex text-2xl justify-between items-center font-medium w-[800px] gap-10">
               <h1>twitter/x</h1>
+              <div className="flex-grow w-full border-[#F5EAD5] border-t-2 border-dotted"></div>
               <h1>@HemanthTenneti</h1>
             </div>
           </div>
+          <footer className="relative pb-5">
+            <hr className="w-[90vw] mb-5 mx-auto"></hr>
+            <div className="flex justify-between mx-24 lowercase text-2xl font-bold">
+              <h1>© 2025 Hemanth Tenneti.</h1>
+              <div className="links flex gap-5 z-10 text-[#F5EAD5]">
+                <a href="https://github.com/HemanthTenneti" target="_blank">
+                  GitHub
+                </a>
+                <a>|</a>
+                <a href="https://linkedin.com/in/hemanth10eti" target="_blank">
+                  LinkedIn
+                </a>
+                <a>|</a>
+                <a href="https://x.com/hemanthtenneti" target="_blank">
+                  twitter
+                </a>
+              </div>
+            </div>
+          </footer>
         </div>
       </section>
-      <footer className="relative">
-        <div className="absolute top-0 left-0 h-full bg-[url(/backgroundnoise.png)] mix-blend-soft-light opacity-75 w-full"></div>
-        <hr className="w-[90vw] mb-5 mx-auto"></hr>
-        <div className="flex justify-between mx-24 lowercase text-2xl font-bold">
-          <h1>© 2025 Hemanth Tenneti.</h1>
-          <div className="links flex gap-5 z-10 text-[#F5EAD5]">
-            <a href="https://github.com/HemanthTenneti" target="_blank">
-              GitHub
-            </a>
-            <a>|</a>
-            <a href="https://linkedin.com/in/hemanth10eti" target="_blank">
-              LinkedIn
-            </a>
-            <a>|</a>
-            <a
-              href="https://adithya.work"
-              target="_blank"
-              className="underline">
-              secret
-            </a>
-          </div>
-        </div>
-      </footer>
       <button
         onClick={scrollToTop}
         className={`fixed bottom-8 right-8 bg-[#F5EAD5] text-[#20201E] w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-[#e5d9c4] transition-all duration-500 z-50 transform ${

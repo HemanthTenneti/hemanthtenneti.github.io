@@ -7,7 +7,24 @@ export const metadata = {
     shortcut: "/favicon.svg",
     apple: "/favicon.svg",
   },
+  themeColor: "#F5EAD5",
   description: "A portfolio page to showcase my work and skills.",
+  openGraph: {
+    title: "Hemanth Tenneti",
+    description: "A portfolio page to showcase my work and skills.",
+    url: "https://10eti.me",
+    siteName: "Hemanth Tenneti",
+    images: [
+      {
+        url: "/hemanthpfp.png",
+        width: 553,
+        height: 828,
+        alt: "Hemanth Tenneti",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
 };
 
 export default function RootLayout({ children }) {
