@@ -5,9 +5,21 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
+import SliderItem from "./components/SliderItem";
 gsap.registerPlugin(ScrollTrigger);
 export default function HomePage() {
+  const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
   const [showScrollTop, setShowScrollTop] = useState(false);
+
+  const nextProject = () => {
+    setCurrentProjectIndex(prevIndex => (prevIndex + 1) % projects.length);
+  };
+
+  const prevProject = () => {
+    setCurrentProjectIndex(
+      prevIndex => (prevIndex - 1 + projects.length) % projects.length
+    );
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -53,11 +65,37 @@ export default function HomePage() {
       });
     };
   }, []);
-
+  useGSAP(() => {
+    const aboutText = new SplitText(".about-text");
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".about-text",
+        start: "top 80%",
+        end: "bottom 60%",
+        scrub: true,
+      },
+    });
+    tl.from(aboutText.words, {
+      duration: 0.5,
+      opacity: 0,
+      y: -10,
+      stagger: 0.1,
+      ease: "power2.EaseInOut",
+    });
+    tl.to(aboutText.words, {
+      duration: 0.5,
+      opacity: 1,
+      y: 0,
+      stagger: 0.1,
+      ease: "power2.EaseInOut",
+    });
+    return () => {
+      tl.kill();
+    };
+  }, []);
   useGSAP(() => {
     const headingSplit = new SplitText(".heading-text");
     const headingSubtext = new SplitText(".heading-subtext");
-    const aboutText = new SplitText(".about-text");
     const navbar = document.getElementById("navbar");
     const tl = gsap.timeline();
     tl.from(navbar, {
@@ -81,18 +119,54 @@ export default function HomePage() {
       stagger: 0.1,
       ease: "power2.EaseInOut",
     });
-    tl.from(aboutText.words, {
-      duration: 0.05,
-      opacity: 0,
-      y: -10,
-      delay: 0,
-      stagger: 0.1,
-      ease: "power2.EaseInOut",
-    });
   });
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
   const lenis = useLenis(({ scroll }) => {});
+
+  const [projects, setProjects] = useState([
+    {
+      title: "in.culcate",
+      description:
+        "Re-discovering Bharat by bridging India's ancient wisdom with modern tech. A learning platform that transforms knowledge into an immersive, meaningful experience - making the journey both engaging and culturally rooted.",
+      image: "/thumbnails/inculcate.png",
+      codeUrl: "https://www.linkedin.com/company/in-culcate/",
+      hostedUrl: "https://inculcate.in",
+    },
+    {
+      title: "subtract",
+      description:
+        "An AI-integrated tool that summarizes and transcribes video content from platforms like YouTube, Instagram, and more. Designed for both long-form and short-form media, with a clean, efficient user experience.",
+      image: "/thumbnails/subtract.png",
+      codeUrl: "https://github.com/HemanthTenneti/subtract-frontend",
+      hostedUrl: "https://subtract.10eti.me",
+    },
+    {
+      title: "File Sorter",
+      description:
+        "Sort files effortlessly using an extension-based mapping system. Designed with simplicity in mind, it features a minimal UI and automates folder organization to improve workspace efficiency and reduce clutter.",
+      image: "/thumbnails/filesorter.png",
+      codeUrl: "https://github.com/HemanthTenneti/FileSorter",
+      hostedUrl: "https://github.com/HemanthTenneti/FileSorter",
+    },
+    {
+      title: "whtrapp",
+      description:
+        "A sleek, minimalistic weather site delivering precise forecasts in a clean design. It presents essential data without distractions, focusing on visual elegance and accurate information for everyday weather checks.",
+      image: "/thumbnails/whtrapp.png",
+      codeUrl: "https://github.com/HemanthTenneti/whtrapp.github.io",
+      hostedUrl: "https://whtrapp.github.io/",
+    },
+  ]);
+
+  useGSAP(() => {
+    gsap.fromTo(
+      ".slider-item",
+      { opacity: 0, x: -50 },
+      { opacity: 1, x: 0, duration: 0.5 }
+    );
+  }, [currentProjectIndex]);
+
   return (
     <ReactLenis root>
       <header className="flex h-[80vh] w-full px-30">
@@ -149,6 +223,62 @@ export default function HomePage() {
             scrolldelay="0">
             {"PROJECTS・".repeat(1000)}
           </marquee>
+        </div>
+        <div className="flex items-center justify-center gap-10 px-20 py-20 pb-5 z-20">
+          <button
+            onClick={prevProject}
+            className="p-5 rounded-lg bg-[#F5EAD5] hover:bg-[#e5d9c4] transition-colors cursor-pointer z-10">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="#000"
+              className="size-6">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15.75 19.5 8.25 12l7.5-7.5"
+              />
+            </svg>
+          </button>
+
+          <SliderItem
+            title={projects[currentProjectIndex].title}
+            description={projects[currentProjectIndex].description}
+            image={projects[currentProjectIndex].image}
+            codeUrl={projects[currentProjectIndex].codeUrl}
+            hostedUrl={projects[currentProjectIndex].hostedUrl}
+          />
+
+          <button
+            onClick={nextProject}
+            className="p-5 rounded-lg bg-[#F5EAD5] hover:bg-[#e5d9c4] transition-colors cursor-pointer z-10">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="#000"
+              className="size-6">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="m8.25 4.5 7.5 7.5-7.5 7.5"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <div className="flex justify-center gap-3 mt-2 mb-10">
+          {projects.map((_, index) => (
+            <div
+              key={index}
+              className={`h-2 w-2 rounded-full ${
+                index === currentProjectIndex ? "bg-[#F5EAD5]" : "bg-[#696969]"
+              }`}
+            />
+          ))}
         </div>
       </section>
       <section id="contact" className="relative">
