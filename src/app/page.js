@@ -173,7 +173,7 @@ export default function HomePage() {
         <img
           src="/circleglow.png"
           alt="Circle Glow"
-          className="absolute bottom-0 left-0 -z-20 object-cover"
+          className="absolute hidden lg:block bottom-0 left-0 -z-20 object-cover"
         />
         <img
           src="/rayglow.png"
@@ -181,41 +181,42 @@ export default function HomePage() {
           className="absolute top-0 right-0 -z-20 object-cover"
         />
         <img
-          className="header-image"
+          className="header-image hidden lg:block"
           src="/hemanthpfp.png"
           alt="Hemanth's Picture"
         />
-        <div className="flex flex-col flex-grow justify-center items-end">
-          <h1 className="heading-text text-right text-8xl text-[#20201E] font-bold">
-            hi! i&apos;m hemanth
-          </h1>
-          <h2 className="text-6xl text-right font-bold heading-subtext">
-            a passion for coding
-            <br /> with an insatiable curiosity
-            <br />
-            fuelling my portfolio
-          </h2>
+        <div className="flex flex-col flex-grow justify-center items-center lg:items-end">
+          <div className="text-center lg:text-right w-fit lg:w-full">
+            <h1 className="heading-text text-8xl text-[#20201E] font-bold">
+              hi! i&apos;m hemanth
+            </h1>
+            <h2 className="text-6xl md:w-full md:text-center lg:text-right font-bold heading-subtext">
+              a passion for coding
+              <br /> with an insatiable curiosity
+              <br />
+              fuelling my portfolio
+            </h2>
+          </div>
         </div>
       </header>
       <section id="about" className="p-[96px] bg-[#2C2C2C] relative">
-        <div className="absolute top-0 left-0 h-full  bg-[url(/backgroundnoise.png)] mix-blend-soft-light opacity-75 w-full"></div>
-        <h3 className="about-text text-4xl text-center font-bold text-[#F5EAD5] relative z-10 lowercase">
-          Driven by music and a love for clean, purposeful code, I enjoy
-          <br></br>
-          building creative and efficient tech solutions. From automation to
-          <br></br>
-          full-stack, I focus on solving real problems with clarity and intent.
-          <br></br>
-          Bringing both technical and a forward-thinking mindset to everything I
-          <br></br>
-          create.
-        </h3>
+        <div className="absolute top-0 left-0 h-full w-full bg-[url(/backgroundnoise.png)] mix-blend-soft-light opacity-75"></div>
+        <div className="relative z-10 max-w-4xl mx-auto">
+          <h3 className="about-text w-full text-3xl text-center font-bold text-[#F5EAD5] lowercase">
+            Driven by music and a love for clean, purposeful code, I enjoy
+            building creative and efficient tech solutions. From automation to
+            full-stack, I focus on solving real problems with clarity and
+            intent. Bringing both technical and a forward-thinking mindset to
+            everything I create.
+          </h3>
+        </div>
       </section>
+
       <section id="projects" className="relative pb-10">
         <div className="absolute top-0 left-0 h-full  bg-[url(/backgroundnoise.png)] mix-blend-soft-light opacity-75 w-full"></div>
         <div className=" h-48 overflow-hidden flex items-center justify-center">
           <marquee
-            className="text-4xl bg-[#F5EAD5] text-[#20201E] font-bold p-4 rotate-z-[-4deg] scale-[1.1]"
+            className="md:text-2xl lg:text-4xl bg-[#F5EAD5] text-[#20201E] font-bold p-4 rotate-z-[-4deg] scale-[1.1]"
             scrollamount="15"
             behavior="scroll"
             direction="left"
@@ -289,22 +290,22 @@ export default function HomePage() {
           <div className="flex flex-col items-center justify-center gap-5 lowercase mb-20">
             <div className="flex text-2xl justify-between items-center font-medium w-[800px] gap-10">
               <h1>email</h1>
-              <div className="flex-grow w-full border-[#F5EAD5] border-t-2 border-dotted"></div>
+              <div className="flex-grow border-[#F5EAD5] border-t-2 border-dotted"></div>
               <h1>hemanth10etii@gmail.com</h1>
             </div>
             <div className="flex text-2xl justify-between items-center font-medium w-[800px] gap-10">
               <h1>github</h1>
-              <div className="flex-grow w-full border-[#F5EAD5] border-t-2 border-dotted"></div>
+              <div className="flex-grow border-[#F5EAD5] border-t-2 border-dotted"></div>
               <h1>HemanthTenneti</h1>
             </div>
             <div className="flex text-2xl justify-between items-center font-medium w-[800px] gap-10">
               <h1>linkedin</h1>
-              <div className="flex-grow w-full border-[#F5EAD5] border-t-2 border-dotted"></div>
+              <div className="flex-grow border-[#F5EAD5] border-t-2 border-dotted"></div>
               <h1>hemanth10eti</h1>
             </div>
             <div className="flex text-2xl justify-between items-center font-medium w-[800px] gap-10">
               <h1>twitter/x</h1>
-              <div className="flex-grow w-full border-[#F5EAD5] border-t-2 border-dotted"></div>
+              <div className="flex-grow border-[#F5EAD5] border-t-2 border-dotted"></div>
               <h1>@HemanthTenneti</h1>
             </div>
           </div>
