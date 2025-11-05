@@ -159,23 +159,6 @@ export default function HomePage() {
     },
   ]);
 
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    const cachedImages = [];
-    projects.forEach(project => {
-      const img = new window.Image();
-      img.src = project.image;
-      cachedImages.push(img);
-    });
-
-    return () => {
-      cachedImages.forEach(img => {
-        img.onload = null;
-      });
-    };
-  }, [projects]);
-
   useGSAP(() => {
     gsap.fromTo(
       ".slider-item",
@@ -262,7 +245,6 @@ export default function HomePage() {
           </button>
 
           <SliderItem
-            key={projects[currentProjectIndex].image}
             title={projects[currentProjectIndex].title}
             description={projects[currentProjectIndex].description}
             image={projects[currentProjectIndex].image}
@@ -321,11 +303,6 @@ export default function HomePage() {
               <div className="flex-grow border-[#F5EAD5] border-t-2 border-dotted"></div>
               <h1>hemanth10eti</h1>
             </div>
-            <div className="flex text-2xl justify-between items-center font-medium w-[500px] lg:w-[800px] gap-10">
-              <h1>twitter/x</h1>
-              <div className="flex-grow border-[#F5EAD5] border-t-2 border-dotted"></div>
-              <h1>@HemanthTenneti</h1>
-            </div>
           </div>
           <footer className="relative pb-5">
             <hr className="w-[90vw] mb-5 mx-auto"></hr>
@@ -338,10 +315,6 @@ export default function HomePage() {
                 <a>|</a>
                 <a href="https://linkedin.com/in/hemanth10eti" target="_blank">
                   LinkedIn
-                </a>
-                <a>|</a>
-                <a href="https://x.com/hemanthtenneti" target="_blank">
-                  twitter
                 </a>
               </div>
             </div>
