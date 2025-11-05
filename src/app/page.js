@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { ReactLenis, useLenis } from "lenis/react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
@@ -10,14 +10,59 @@ gsap.registerPlugin(ScrollTrigger);
 export default function HomePage() {
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [autoSlideActive, setAutoSlideActive] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+
+  const projects = useMemo(
+    () => [
+      {
+        title: "in.culcate",
+        description:
+          "Re-discovering Bharat by bridging India's ancient wisdom with modern tech. A learning platform that transforms knowledge into an immersive, meaningful experience - making the journey both engaging and culturally rooted.",
+        image: "/thumbnails/inculcate.png",
+        codeUrl: "https://www.linkedin.com/company/in-culcate/",
+        hostedUrl: "https://inculcate.in",
+      },
+      {
+        title: "subtract",
+        description:
+          "An AI-integrated tool that summarizes and transcribes video content from platforms like YouTube, Instagram, and more. Designed for both long-form and short-form media, with a clean, efficient user experience.",
+        image: "/thumbnails/subtract.png",
+        codeUrl: "https://github.com/HemanthTenneti/subtract-frontend",
+        hostedUrl: "https://subtract.10eti.me",
+      },
+      {
+        title: "File Sorter",
+        description:
+          "Sort files effortlessly using an extension-based mapping system. Designed with simplicity in mind, it features a minimal UI and automates folder organization to improve workspace efficiency and reduce clutter.",
+        image: "/thumbnails/filesorter.png",
+        codeUrl: "https://github.com/HemanthTenneti/FileSorter",
+        hostedUrl: "https://github.com/HemanthTenneti/FileSorter",
+      },
+      {
+        title: "whtrapp",
+        description:
+          "A sleek, minimalistic weather site delivering precise forecasts in a clean design. It presents essential data without distractions, focusing on visual elegance and accurate information for everyday weather checks.",
+        image: "/thumbnails/whtrapp.png",
+        codeUrl: "https://github.com/HemanthTenneti/whtrapp.github.io",
+        hostedUrl: "https://whtrapp.github.io/",
+      },
+    ],
+    []
+  );
+
+  const projectCount = projects.length;
+  const sliderRef = useRef(null);
 
   const nextProject = () => {
-    setCurrentProjectIndex(prevIndex => (prevIndex + 1) % projects.length);
+    if (projectCount <= 1) return;
+    setCurrentProjectIndex(prevIndex => (prevIndex + 1) % projectCount);
   };
 
   const prevProject = () => {
+    if (projectCount <= 1) return;
     setCurrentProjectIndex(
-      prevIndex => (prevIndex - 1 + projects.length) % projects.length
+      prevIndex => (prevIndex - 1 + projectCount) % projectCount
     );
   };
 
@@ -65,6 +110,72 @@ export default function HomePage() {
       });
     };
   }, []);
+
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkIsMobile();
+    window.addEventListener("resize", checkIsMobile);
+
+    return () => window.removeEventListener("resize", checkIsMobile);
+  }, []);
+
+  useEffect(() => {
+    if (!isMobile || !autoSlideActive || projectCount <= 1) return;
+
+    const interval = setInterval(() => {
+      setCurrentProjectIndex(prevIndex => (prevIndex + 1) % projectCount);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [isMobile, autoSlideActive, projectCount]);
+
+  useEffect(() => {
+    const sliderEl = sliderRef.current;
+    if (!isMobile || !sliderEl || projectCount <= 1) return;
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    const onTouchStart = event => {
+      touchStartX = event.touches[0].clientX;
+    };
+
+    const onTouchMove = event => {
+      touchEndX = event.touches[0].clientX;
+    };
+
+    const onTouchEnd = () => {
+      const threshold = 50;
+      const distance = touchEndX - touchStartX;
+
+      if (Math.abs(distance) > threshold) {
+        setAutoSlideActive(false);
+        if (distance < 0) {
+          setCurrentProjectIndex(prevIndex => (prevIndex + 1) % projectCount);
+        } else {
+          setCurrentProjectIndex(
+            prevIndex => (prevIndex - 1 + projectCount) % projectCount
+          );
+        }
+      }
+
+      touchStartX = 0;
+      touchEndX = 0;
+    };
+
+    sliderEl.addEventListener("touchstart", onTouchStart, { passive: true });
+    sliderEl.addEventListener("touchmove", onTouchMove, { passive: true });
+    sliderEl.addEventListener("touchend", onTouchEnd, { passive: true });
+
+    return () => {
+      sliderEl.removeEventListener("touchstart", onTouchStart);
+      sliderEl.removeEventListener("touchmove", onTouchMove);
+      sliderEl.removeEventListener("touchend", onTouchEnd);
+    };
+  }, [isMobile, projectCount]);
   useGSAP(() => {
     const aboutText = new SplitText(".about-text");
     const tl = gsap.timeline({
@@ -124,46 +235,14 @@ export default function HomePage() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
   const lenis = useLenis(({ scroll }) => {});
 
-  const [projects, setProjects] = useState([
-    {
-      title: "in.culcate",
-      description:
-        "Re-discovering Bharat by bridging India's ancient wisdom with modern tech. A learning platform that transforms knowledge into an immersive, meaningful experience - making the journey both engaging and culturally rooted.",
-      image: "/thumbnails/inculcate.png",
-      codeUrl: "https://www.linkedin.com/company/in-culcate/",
-      hostedUrl: "https://inculcate.in",
-    },
-    {
-      title: "subtract",
-      description:
-        "An AI-integrated tool that summarizes and transcribes video content from platforms like YouTube, Instagram, and more. Designed for both long-form and short-form media, with a clean, efficient user experience.",
-      image: "/thumbnails/subtract.png",
-      codeUrl: "https://github.com/HemanthTenneti/subtract-frontend",
-      hostedUrl: "https://subtract.10eti.me",
-    },
-    {
-      title: "File Sorter",
-      description:
-        "Sort files effortlessly using an extension-based mapping system. Designed with simplicity in mind, it features a minimal UI and automates folder organization to improve workspace efficiency and reduce clutter.",
-      image: "/thumbnails/filesorter.png",
-      codeUrl: "https://github.com/HemanthTenneti/FileSorter",
-      hostedUrl: "https://github.com/HemanthTenneti/FileSorter",
-    },
-    {
-      title: "whtrapp",
-      description:
-        "A sleek, minimalistic weather site delivering precise forecasts in a clean design. It presents essential data without distractions, focusing on visual elegance and accurate information for everyday weather checks.",
-      image: "/thumbnails/whtrapp.png",
-      codeUrl: "https://github.com/HemanthTenneti/whtrapp.github.io",
-      hostedUrl: "https://whtrapp.github.io/",
-    },
-  ]);
-
   useGSAP(() => {
+    const sliderTrack = sliderRef.current?.querySelector(".slider-track");
+    if (!sliderTrack) return;
+
     gsap.fromTo(
-      ".slider-item",
-      { opacity: 0, x: -50 },
-      { opacity: 1, x: 0, duration: 0.5 }
+      sliderTrack,
+      { opacity: 0.75 },
+      { opacity: 1, duration: 0.4, ease: "power2.out" }
     );
   }, [currentProjectIndex]);
 
@@ -199,10 +278,12 @@ export default function HomePage() {
           </div>
         </div>
       </header>
-      <section id="about" className="p-[96px] bg-[#2C2C2C] relative">
+      <section
+        id="about"
+        className="px-6 py-16 sm:px-10 sm:py-20 md:px-16 md:py-24 lg:p-[96px] bg-[#2C2C2C] relative">
         <div className="absolute top-0 left-0 h-full w-full bg-[url(/backgroundnoise.png)] mix-blend-soft-light opacity-75"></div>
         <div className="relative z-10 max-w-4xl mx-auto">
-          <h3 className="about-text w-full text-3xl text-center font-bold text-[#F5EAD5] lowercase">
+          <h3 className="about-text w-full text-lg sm:text-xl md:text-2xl lg:text-3xl text-justify sm:text-center font-bold text-[#F5EAD5] lowercase">
             Driven by music and a love for clean, purposeful code, I enjoy
             building creative and efficient tech solutions. From automation to
             full-stack, I focus on solving real problems with clarity and
@@ -225,10 +306,15 @@ export default function HomePage() {
             {"PROJECTS・".repeat(1000)}
           </marquee>
         </div>
-        <div className="flex items-center justify-center gap-10 px-10 lg:px-20 py-20 pb-5 z-20">
+        <div
+          ref={sliderRef}
+          className="flex w-full items-center justify-center gap-10 px-6 sm:px-10 lg:px-20 py-20 pb-5 z-20">
           <button
-            onClick={prevProject}
-            className="p-5 rounded-lg bg-[#F5EAD5] hover:bg-[#e5d9c4] transition-colors cursor-pointer z-10">
+            onClick={() => {
+              setAutoSlideActive(false);
+              prevProject();
+            }}
+            className="hidden p-5 rounded-lg bg-[#F5EAD5] hover:bg-[#e5d9c4] transition-colors cursor-pointer z-10 md:flex">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -244,17 +330,34 @@ export default function HomePage() {
             </svg>
           </button>
 
-          <SliderItem
-            title={projects[currentProjectIndex].title}
-            description={projects[currentProjectIndex].description}
-            image={projects[currentProjectIndex].image}
-            codeUrl={projects[currentProjectIndex].codeUrl}
-            hostedUrl={projects[currentProjectIndex].hostedUrl}
-          />
+          <div className="relative flex w-full max-w-[800px] touch-pan-y overflow-hidden md:touch-auto">
+            <div
+              className="slider-track flex w-full transition-transform duration-500 ease-out"
+              style={{
+                transform: `translateX(-${currentProjectIndex * 100}%)`,
+              }}>
+              {projects.map(project => (
+                <div
+                  key={project.title}
+                  className="flex w-full shrink-0 justify-center">
+                  <SliderItem
+                    title={project.title}
+                    description={project.description}
+                    image={project.image}
+                    codeUrl={project.codeUrl}
+                    hostedUrl={project.hostedUrl}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
 
           <button
-            onClick={nextProject}
-            className="p-5 rounded-lg bg-[#F5EAD5] hover:bg-[#e5d9c4] transition-colors cursor-pointer z-10">
+            onClick={() => {
+              setAutoSlideActive(false);
+              nextProject();
+            }}
+            className="hidden p-5 rounded-lg bg-[#F5EAD5] hover:bg-[#e5d9c4] transition-colors cursor-pointer z-10 md:flex">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -283,36 +386,39 @@ export default function HomePage() {
         </div>
       </section>
       <section id="contact" className="relative">
-        <div className="absolute top-0 left-0 h-full bg-[url(/backgroundnoise.png)] mix-blend-soft-light opacity-75 w-full"></div>
-        <div className="mx-6 rounded-t-4xl px-12 pt-12 overflow-hidden flex flex-col items-center justify-center border-1 border-b-0 border-[#F5EAD5]">
-          <h1 className="text-4xl font-bold mb-18">contact</h1>
+        <div className="absolute top-0 left-0 h-full w-full bg-[url(/backgroundnoise.png)] mix-blend-soft-light opacity-75"></div>
+        <div className="relative mx-4 rounded-t-4xl border-1 border-b-0 border-[#F5EAD5] px-6 pt-12 pb-10 sm:mx-6 sm:px-10 lg:mx-10 lg:px-14 xl:mx-16">
+          <h1 className="mb-14 text-center text-3xl font-bold sm:text-4xl">
+            contact
+          </h1>
 
-          <div className="flex flex-col items-center justify-center gap-5 lowercase mb-20">
-            <div className="flex text-2xl justify-between items-center font-mediu w-[500px] lg:w-[800px] gap-10">
-              <h1>email</h1>
-              <div className="flex-grow border-[#F5EAD5] border-t-2 border-dotted"></div>
-              <h1>hemanth10etii@gmail.com</h1>
-            </div>
-            <div className="flex text-2xl justify-between items-center font-medium w-[500px] lg:w-[800px] gap-10">
-              <h1>github</h1>
-              <div className="flex-grow border-[#F5EAD5] border-t-2 border-dotted"></div>
-              <h1>HemanthTenneti</h1>
-            </div>
-            <div className="flex text-2xl justify-between items-center font-medium w-[500px] lg:w-[800px] gap-10">
-              <h1>linkedin</h1>
-              <div className="flex-grow border-[#F5EAD5] border-t-2 border-dotted"></div>
-              <h1>hemanth10eti</h1>
-            </div>
+          <div className="mx-auto flex w-full max-w-4xl flex-col gap-6 lowercase sm:gap-8">
+            {[
+              { label: "email", value: "hemanth10etii@gmail.com" },
+              { label: "github", value: "HemanthTenneti" },
+              { label: "linkedin", value: "hemanth10eti" },
+            ].map(({ label, value }) => (
+              <div
+                key={label}
+                className="flex flex-col items-start justify-between gap-3 text-lg font-medium sm:flex-row sm:items-center sm:gap-6 sm:text-xl lg:text-2xl">
+                <span className="shrink-0 lowercase">{label}</span>
+                <div className="hidden flex-grow border-t-2 border-dotted border-[#F5EAD5] sm:block"></div>
+                <span className="break-all text-right sm:text-left">
+                  {value}
+                </span>
+              </div>
+            ))}
           </div>
-          <footer className="relative pb-5">
-            <hr className="w-[90vw] mb-5 mx-auto"></hr>
-            <div className="flex justify-between mx-16 lg:mx-24 lowercase text-m lg:text-2xl font-bold">
+
+          <footer className="relative mt-16 pb-4">
+            <hr className="mx-auto mb-5 w-full max-w-5xl"></hr>
+            <div className="mx-auto flex flex-col items-center justify-between gap-4 text-center lowercase text-sm font-bold sm:text-base md:text-lg lg:text-xl lg:flex-row lg:text-left">
               <h1>© 2025 Hemanth Tenneti.</h1>
-              <div className="links flex gap-5 z-10 text-[#F5EAD5]">
+              <div className="flex flex-wrap items-center justify-center gap-4 text-[#F5EAD5]">
                 <a href="https://github.com/HemanthTenneti" target="_blank">
                   GitHub
                 </a>
-                <a>|</a>
+                <span>|</span>
                 <a href="https://linkedin.com/in/hemanth10eti" target="_blank">
                   LinkedIn
                 </a>

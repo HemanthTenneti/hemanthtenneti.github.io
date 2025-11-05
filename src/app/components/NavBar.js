@@ -79,18 +79,18 @@ export default function NavBar() {
       </div>
 
       <div
-        className={`absolute left-0 top-full z-40 mt-3 w-full origin-top rounded-3xl border border-[#F5EAD5]/20 bg-[#1F1F1F] p-6 shadow-2xl transition-all duration-300 ease-out min-[550px]:hidden ${
+        className={`absolute right-0 top-full z-40 mt-3 origin-top rounded-2xl border border-[#F5EAD5]/20 bg-[#1F1F1F] p-3 shadow-2xl transition-all duration-300 ease-out min-[550px]:hidden ${
           isMenuOpen
             ? "pointer-events-auto opacity-100 translate-y-0 scale-y-100"
             : "pointer-events-none opacity-0 -translate-y-2 scale-y-95"
         }`}>
-        <div className="flex flex-col gap-4 text-base font-semibold sm:text-lg">
+        <div className="flex flex-col gap-2 text-sm font-semibold sm:text-base text-right">
           {links.map(({ href, label }) => (
             <Link
               key={href}
               href={href}
               onClick={handleLinkClick}
-              className="rounded-full px-4 py-2 transition-colors hover:bg-[#F5EAD5]/10">
+              className="rounded-lg px-3 py-1.5 transition-colors hover:bg-[#F5EAD5]/10">
               {label}
             </Link>
           ))}
