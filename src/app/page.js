@@ -12,6 +12,8 @@ export default function HomePage() {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [autoSlideActive, setAutoSlideActive] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
+  const [showScrollHint, setShowScrollHint] = useState(false);
+  const scrollHintRef = useRef(null);
 
   const projects = useMemo(
     () => [
@@ -70,6 +72,10 @@ export default function HomePage() {
     const handleScroll = () => {
       if (window.scrollY > 300) setShowScrollTop(true);
       else setShowScrollTop(false);
+
+      if (window.scrollY > 100) {
+        setShowScrollHint(false);
+      }
     };
     window.addEventListener("scroll", handleScroll);
 
@@ -177,6 +183,31 @@ export default function HomePage() {
     };
   }, [isMobile, projectCount]);
   useGSAP(() => {
+    const scrollHint = scrollHintRef.current;
+    if (!scrollHint) return;
+
+    // Fade in after 2 seconds
+    gsap.to(scrollHint, {
+      opacity: 0.6,
+      delay: 2,
+      duration: 0.8,
+      ease: "power2.out",
+    });
+
+    // Then start the bouncing animation
+    gsap.to(
+      scrollHint,
+      {
+        y: 6,
+        duration: 1.5,
+        ease: "sine.inOut",
+        repeat: -1,
+        yoyo: true,
+      },
+      ">-0.8"
+    );
+  }, []);
+  useGSAP(() => {
     const aboutText = new SplitText(".about-text");
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -269,6 +300,27 @@ export default function HomePage() {
             <h1 className="heading-text text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-[#20201E] font-bold">
               hi! i&apos;m hemanth
             </h1>
+            <div
+              className="sm:hidden flex flex-col items-center gap-2 mt-6"
+              ref={scrollHintRef}
+              style={{ opacity: 0 }}>
+              <p className="text-xs text-[#a8a8a8] font-medium uppercase tracking-wider">
+                scroll
+              </p>
+              <svg
+                className="scroll-hint w-3 h-3 text-[#a8a8a8]"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                />
+              </svg>
+            </div>
             <h2 className="hidden text-2xl sm:block sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl md:w-full md:text-center lg:text-right font-bold heading-subtext">
               a passion for coding
               <br /> with an insatiable curiosity
@@ -394,19 +446,34 @@ export default function HomePage() {
 
           <div className="mx-auto flex w-full max-w-4xl flex-col gap-6 lowercase sm:gap-8">
             {[
-              { label: "email", value: "hemanth10etii@gmail.com" },
-              { label: "github", value: "HemanthTenneti" },
-              { label: "linkedin", value: "hemanth10eti" },
-            ].map(({ label, value }) => (
-              <div
+              {
+                label: "email",
+                value: "hemanth10etii@gmail.com",
+                href: "mailto:hemanth10etii@gmail.com",
+              },
+              {
+                label: "github",
+                value: "HemanthTenneti",
+                href: "https://github.com/HemanthTenneti",
+              },
+              {
+                label: "linkedin",
+                value: "hemanth10eti",
+                href: "https://linkedin.com/in/hemanth10eti",
+              },
+            ].map(({ label, value, href }) => (
+              <a
                 key={label}
-                className="flex flex-col items-start justify-between gap-3 text-lg font-medium sm:flex-row sm:items-center sm:gap-6 sm:text-xl lg:text-2xl">
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-col items-start justify-between gap-3 text-lg font-medium sm:flex-row sm:items-center sm:gap-6 sm:text-xl lg:text-2xl transition-opacity hover:opacity-70">
                 <span className="shrink-0 lowercase">{label}</span>
-                <div className="hidden flex-grow border-t-2 border-dotted border-[#F5EAD5] sm:block"></div>
+                <div className="hidden grow border-t-2 border-dotted border-[#F5EAD5] sm:block"></div>
                 <span className="break-all text-right sm:text-left">
                   {value}
                 </span>
-              </div>
+              </a>
             ))}
           </div>
 
