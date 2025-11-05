@@ -187,10 +187,10 @@ export default function HomePage() {
         />
         <div className="flex flex-col flex-grow justify-center items-center lg:items-end">
           <div className="text-center lg:text-right w-fit lg:w-full">
-            <h1 className="heading-text text-8xl text-[#20201E] font-bold">
+            <h1 className="heading-text text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-[#20201E] font-bold">
               hi! i&apos;m hemanth
             </h1>
-            <h2 className="text-6xl hidden sm:block md:w-full md:text-center lg:text-right font-bold heading-subtext">
+            <h2 className="hidden text-2xl sm:block sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl md:w-full md:text-center lg:text-right font-bold heading-subtext">
               a passion for coding
               <br /> with an insatiable curiosity
               <br />
