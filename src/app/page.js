@@ -159,6 +159,23 @@ export default function HomePage() {
     },
   ]);
 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const cachedImages = [];
+    projects.forEach(project => {
+      const img = new window.Image();
+      img.src = project.image;
+      cachedImages.push(img);
+    });
+
+    return () => {
+      cachedImages.forEach(img => {
+        img.onload = null;
+      });
+    };
+  }, [projects]);
+
   useGSAP(() => {
     gsap.fromTo(
       ".slider-item",
@@ -245,6 +262,7 @@ export default function HomePage() {
           </button>
 
           <SliderItem
+            key={projects[currentProjectIndex].image}
             title={projects[currentProjectIndex].title}
             description={projects[currentProjectIndex].description}
             image={projects[currentProjectIndex].image}
