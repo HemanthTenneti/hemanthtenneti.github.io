@@ -8,21 +8,6 @@ import { SplitText } from "gsap/SplitText";
 import SliderItem from "./components/SliderItem";
 
 gsap.registerPlugin(ScrollTrigger);
-
-// SEO Metadata export
-export const metadata = {
-  title: "Hemanth Tenneti | Full Stack Developer & Portfolio",
-  description:
-    "Portfolio of Hemanth Tenneti - Full Stack Developer showcasing AI projects, web development, and innovative tech solutions.",
-  keywords:
-    "Full Stack Developer, Web Developer, Portfolio, AI Projects, JavaScript, React, Next.js, Python",
-  openGraph: {
-    title: "Hemanth Tenneti | Full Stack Developer",
-    description:
-      "Portfolio showcasing innovative AI projects, web development, and modern tech solutions",
-    image: "/facepfp.png",
-  },
-};
 export default function HomePage() {
   const projects = useMemo(
     () => [

@@ -131,7 +131,10 @@ export default function RootLayout({ children }) {
         <link rel="canonical" href="https://10eti.me" />
 
         {/* Google Analytics & Verification */}
-        <meta name="google-site-verification" content="" />
+        <meta
+          name="google-site-verification"
+          content="UT1DM9PfW12s1s-vjZ7Qje_HcxY3cPJCQyytKBHJHv4"
+        />
 
         {/* Structured Data (JSON-LD) */}
         <script type="application/ld+json">
