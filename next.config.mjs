@@ -106,7 +106,15 @@ const nextConfig = {
     };
   },
 
-  // Webpack optimizations
+  // Turbopack configuration (Next.js 16 default)
+  turbopack: {
+    // Enable for improved performance
+    resolveAlias: {
+      canvas: "./src/lib/canvas-mock.js",
+    },
+  },
+
+  // Webpack optimizations (fallback for --webpack flag)
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.optimization = {
@@ -130,11 +138,6 @@ const nextConfig = {
     }
 
     return config;
-  },
-
-  // OpenTelemetry for monitoring
-  experimental: {
-    instrumentationHook: true,
   },
 };
 
