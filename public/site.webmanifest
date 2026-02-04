@@ -1,0 +1,109 @@
+{
+  "name": "Hemanth Tenneti Portfolio",
+  "short_name": "Hemanth",
+  "description": "Portfolio of Hemanth Tenneti - Full Stack Developer showcasing AI projects and innovative tech solutions",
+  "start_url": "https://10eti.me",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#2C2C2C",
+  "theme_color": "#F5EAD5",
+  "categories": ["business", "portfolio"],
+  "screenshots": [
+    {
+      "src": "/facepfp.png",
+      "sizes": "553x828",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "purpose": "any"
+    },
+    {
+      "src": "/facepfp.png",
+      "sizes": "553x828",
+      "type": "image/png",
+      "form_factor": "wide",
+      "purpose": "any"
+    }
+  ],
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "GitHub Profile",
+      "short_name": "GitHub",
+      "description": "Visit Hemanth's GitHub profile",
+      "url": "https://github.com/HemanthTenneti",
+      "icons": [
+        {
+          "src": "/favicon.svg",
+          "sizes": "192x192",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "LinkedIn Profile",
+      "short_name": "LinkedIn",
+      "description": "Visit Hemanth's LinkedIn profile",
+      "url": "https://linkedin.com/in/hemanth10eti",
+      "icons": [
+        {
+          "src": "/favicon.svg",
+          "sizes": "192x192",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Projects",
+      "short_name": "Projects",
+      "description": "View all projects",
+      "url": "https://10eti.me#projects",
+      "icons": [
+        {
+          "src": "/favicon.svg",
+          "sizes": "192x192",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Contact",
+      "short_name": "Contact",
+      "description": "Contact Hemanth",
+      "url": "https://10eti.me#contact",
+      "icons": [
+        {
+          "src": "/favicon.svg",
+          "sizes": "192x192",
+          "type": "image/svg+xml"
+        }
+      ]
+    }
+  ],
+  "prefer_related_applications": false
+}

@@ -1,0 +1,22 @@
+# Robots.txt for Hemanth Tenneti Portfolio
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /.next
+Disallow: /node_modules
+
+# Sitemaps
+Sitemap: https://10eti.me/sitemap.xml
+
+# Crawl delay for search engines
+Crawl-delay: 1
+
+# Specific rules for Googlebot
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0.5
+
+# Specific rules for Bingbot
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1

@@ -8,6 +8,11 @@ const links = [
   { href: "#about", label: "about" },
   { href: "#projects", label: "projects" },
   { href: "#contact", label: "contact" },
+  {
+    href: "/Hemanth Tenneti Resume Jan 20.pdf",
+    label: "resume",
+    download: true,
+  },
 ];
 
 export default function NavBar() {
@@ -51,27 +56,27 @@ export default function NavBar() {
           strokeWidth="1.8"
           stroke="currentColor"
           className="h-6 w-6">
-          {isMenuOpen ? (
+          {isMenuOpen ?
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
               d="M6 18L18 6M6 6l12 12"
             />
-          ) : (
-            <path
+          : <path
               strokeLinecap="round"
               strokeLinejoin="round"
               d="M4 7h16M4 12h16M4 17h16"
             />
-          )}
+          }
         </svg>
       </button>
 
       <div className="hidden items-center gap-6 font-semibold text-sm min-[550px]:flex min-[650px]:text-base lg:text-xl">
-        {links.map(({ href, label }) => (
+        {links.map(({ href, label, download }) => (
           <Link
             key={href}
             href={href}
+            download={download}
             className="transition-opacity hover:opacity-70">
             {label}
           </Link>
@@ -80,15 +85,16 @@ export default function NavBar() {
 
       <div
         className={`absolute right-0 top-full z-40 mt-3 origin-top rounded-2xl border border-[#F5EAD5]/20 bg-[#1F1F1F] p-3 shadow-2xl transition-all duration-300 ease-out min-[550px]:hidden ${
-          isMenuOpen
-            ? "pointer-events-auto opacity-100 translate-y-0 scale-y-100"
-            : "pointer-events-none opacity-0 -translate-y-2 scale-y-95"
+          isMenuOpen ?
+            "pointer-events-auto opacity-100 translate-y-0 scale-y-100"
+          : "pointer-events-none opacity-0 -translate-y-2 scale-y-95"
         }`}>
         <div className="flex flex-col gap-2 text-sm font-semibold sm:text-base text-right">
-          {links.map(({ href, label }) => (
+          {links.map(({ href, label, download }) => (
             <Link
               key={href}
               href={href}
+              download={download}
               onClick={handleLinkClick}
               className="rounded-lg px-3 py-1.5 transition-colors hover:bg-[#F5EAD5]/10">
               {label}

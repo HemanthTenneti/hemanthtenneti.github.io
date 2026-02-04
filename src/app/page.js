@@ -6,15 +6,24 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import SliderItem from "./components/SliderItem";
-gsap.registerPlugin(ScrollTrigger);
-export default function HomePage() {
-  const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
-  const [showScrollTop, setShowScrollTop] = useState(false);
-  const [autoSlideActive, setAutoSlideActive] = useState(true);
-  const [isMobile, setIsMobile] = useState(false);
-  const [showScrollHint, setShowScrollHint] = useState(false);
-  const scrollHintRef = useRef(null);
 
+gsap.registerPlugin(ScrollTrigger);
+
+// SEO Metadata export
+export const metadata = {
+  title: "Hemanth Tenneti | Full Stack Developer & Portfolio",
+  description:
+    "Portfolio of Hemanth Tenneti - Full Stack Developer showcasing AI projects, web development, and innovative tech solutions.",
+  keywords:
+    "Full Stack Developer, Web Developer, Portfolio, AI Projects, JavaScript, React, Next.js, Python",
+  openGraph: {
+    title: "Hemanth Tenneti | Full Stack Developer",
+    description:
+      "Portfolio showcasing innovative AI projects, web development, and modern tech solutions",
+    image: "/facepfp.png",
+  },
+};
+export default function HomePage() {
   const projects = useMemo(
     () => [
       {
@@ -24,6 +33,13 @@ export default function HomePage() {
         image: "/thumbnails/inculcate.png",
         codeUrl: "https://www.linkedin.com/company/in-culcate/",
         hostedUrl: "https://inculcate.in",
+      },
+      {
+        title: "admiro",
+        description: "",
+        image: "",
+        codeUrl: "",
+        hostedUrl: "",
       },
       {
         title: "subtract",
@@ -50,23 +66,68 @@ export default function HomePage() {
         hostedUrl: "https://whtrapp.github.io/",
       },
     ],
-    []
+    [],
   );
 
   const projectCount = projects.length;
+  const [currentProjectIndex, setCurrentProjectIndex] = useState(projectCount); // Start in middle of duplicated array
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  const [autoSlideActive, setAutoSlideActive] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+  const [showScrollHint, setShowScrollHint] = useState(false);
+  const scrollHintRef = useRef(null);
   const sliderRef = useRef(null);
+  const sliderTrackRef = useRef(null);
 
   const nextProject = () => {
     if (projectCount <= 1) return;
-    setCurrentProjectIndex(prevIndex => (prevIndex + 1) % projectCount);
+    setCurrentProjectIndex(prevIndex => prevIndex + 1);
   };
 
   const prevProject = () => {
     if (projectCount <= 1) return;
-    setCurrentProjectIndex(
-      prevIndex => (prevIndex - 1 + projectCount) % projectCount
-    );
+    setCurrentProjectIndex(prevIndex => prevIndex - 1);
   };
+
+  // Handle infinite carousel reset after animation completes
+  useEffect(() => {
+    const handleTransitionEnd = () => {
+      const trackEl = sliderTrackRef.current;
+      if (!trackEl) return;
+
+      // Reset index when we get too far from the middle range
+      if (currentProjectIndex >= projectCount * 2) {
+        // Disable transitions completely and set transform manually
+        trackEl.style.transition = "none";
+        const newIndex = currentProjectIndex - projectCount;
+        trackEl.style.transform = `translateX(-${newIndex * 100}%)`;
+        setCurrentProjectIndex(newIndex);
+
+        // Re-enable transitions on next frame
+        requestAnimationFrame(() => {
+          trackEl.style.transition = "";
+        });
+      } else if (currentProjectIndex < projectCount) {
+        // Disable transitions completely and set transform manually
+        trackEl.style.transition = "none";
+        const newIndex = currentProjectIndex + projectCount;
+        trackEl.style.transform = `translateX(-${newIndex * 100}%)`;
+        setCurrentProjectIndex(newIndex);
+
+        // Re-enable transitions on next frame
+        requestAnimationFrame(() => {
+          trackEl.style.transition = "";
+        });
+      }
+    };
+
+    const trackEl = sliderTrackRef.current;
+    if (trackEl) {
+      trackEl.addEventListener("transitionend", handleTransitionEnd);
+      return () =>
+        trackEl.removeEventListener("transitionend", handleTransitionEnd);
+    }
+  }, [projectCount, currentProjectIndex]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -103,7 +164,7 @@ export default function HomePage() {
     };
 
     const anchorLinks = document.querySelectorAll(
-      'a[href^="#"]:not([href="#"])'
+      'a[href^="#"]:not([href="#"])',
     );
     anchorLinks.forEach(anchor => {
       anchor.addEventListener("click", handleAnchorClick);
@@ -132,7 +193,7 @@ export default function HomePage() {
     if (!isMobile || !autoSlideActive || projectCount <= 1) return;
 
     const interval = setInterval(() => {
-      setCurrentProjectIndex(prevIndex => (prevIndex + 1) % projectCount);
+      setCurrentProjectIndex(prevIndex => prevIndex + 1);
     }, 4000);
 
     return () => clearInterval(interval);
@@ -160,11 +221,9 @@ export default function HomePage() {
       if (Math.abs(distance) > threshold) {
         setAutoSlideActive(false);
         if (distance < 0) {
-          setCurrentProjectIndex(prevIndex => (prevIndex + 1) % projectCount);
+          setCurrentProjectIndex(prevIndex => prevIndex + 1);
         } else {
-          setCurrentProjectIndex(
-            prevIndex => (prevIndex - 1 + projectCount) % projectCount
-          );
+          setCurrentProjectIndex(prevIndex => prevIndex - 1);
         }
       }
 
@@ -182,6 +241,7 @@ export default function HomePage() {
       sliderEl.removeEventListener("touchend", onTouchEnd);
     };
   }, [isMobile, projectCount]);
+
   useGSAP(() => {
     const scrollHint = scrollHintRef.current;
     if (!scrollHint) return;
@@ -204,7 +264,7 @@ export default function HomePage() {
         repeat: -1,
         yoyo: true,
       },
-      ">-0.8"
+      ">-0.8",
     );
   }, []);
   useGSAP(() => {
@@ -273,7 +333,7 @@ export default function HomePage() {
     gsap.fromTo(
       sliderTrack,
       { opacity: 0.75 },
-      { opacity: 1, duration: 0.4, ease: "power2.out" }
+      { opacity: 1, duration: 0.4, ease: "power2.out" },
     );
   }, [currentProjectIndex]);
 
@@ -282,20 +342,23 @@ export default function HomePage() {
       <header className="flex h-[80vh] w-full px-12 md:px-30">
         <img
           src="/circleglow.png"
-          alt="Circle Glow"
+          alt="Decorative gradient circle glow background effect"
           className="absolute hidden lg:block bottom-0 left-0 -z-20 object-cover"
+          loading="lazy"
         />
         <img
           src="/rayglow.png"
-          alt="Ray Glow"
+          alt="Decorative ray glow background effect"
           className="absolute top-0 right-0 -z-20 object-cover"
+          loading="lazy"
         />
         <img
           className="header-image hidden lg:block"
           src="/hemanthpfp.png"
-          alt="Hemanth's Picture"
+          alt="Hemanth Tenneti - Full Stack Developer"
+          loading="lazy"
         />
-        <div className="flex flex-col flex-grow justify-center items-center lg:items-end">
+        <div className="flex flex-col grow justify-center items-center lg:items-end">
           <div className="text-center lg:text-right w-fit lg:w-full">
             <h1 className="heading-text text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-[#20201E] font-bold">
               hi! i&apos;m hemanth
@@ -312,7 +375,8 @@ export default function HomePage() {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke="currentColor">
+                stroke="currentColor"
+                aria-hidden="true">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -332,7 +396,7 @@ export default function HomePage() {
       </header>
       <section
         id="about"
-        className="px-6 py-16 sm:px-10 sm:py-20 md:px-16 md:py-24 lg:p-[96px] bg-[#2C2C2C] relative">
+        className="px-6 py-16 sm:px-10 sm:py-20 md:px-16 md:py-24 lg:p-24 bg-[#2C2C2C] relative">
         <div className="absolute top-0 left-0 h-full w-full bg-[url(/backgroundnoise.png)] mix-blend-soft-light opacity-75"></div>
         <div className="relative z-10 max-w-4xl mx-auto">
           <h3 className="about-text w-full text-lg sm:text-xl md:text-2xl lg:text-3xl text-justify sm:text-center font-bold text-[#F5EAD5] lowercase">
@@ -346,6 +410,65 @@ export default function HomePage() {
       </section>
 
       <section id="projects" className="relative pb-10">
+        {/* Projects Schema Markup */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            name: "Projects",
+            description: "Portfolio projects by Hemanth Tenneti",
+            hasPart: [
+              {
+                "@type": "CreativeWork",
+                name: "in.culcate",
+                description:
+                  "Re-discovering Bharat by bridging India's ancient wisdom with modern tech. A learning platform that transforms knowledge into an immersive, meaningful experience.",
+                image: "https://10eti.me/thumbnails/inculcate.png",
+                url: "https://inculcate.in",
+                author: {
+                  "@type": "Person",
+                  name: "Hemanth Tenneti",
+                },
+              },
+              {
+                "@type": "CreativeWork",
+                name: "subtract",
+                description:
+                  "An AI-integrated tool that summarizes and transcribes video content from platforms like YouTube, Instagram, and more.",
+                image: "https://10eti.me/thumbnails/subtract.png",
+                url: "https://subtract.10eti.me",
+                author: {
+                  "@type": "Person",
+                  name: "Hemanth Tenneti",
+                },
+              },
+              {
+                "@type": "CreativeWork",
+                name: "File Sorter",
+                description:
+                  "Sort files effortlessly using an extension-based mapping system. Designed with simplicity in mind.",
+                image: "https://10eti.me/thumbnails/filesorter.png",
+                url: "https://github.com/HemanthTenneti/FileSorter",
+                author: {
+                  "@type": "Person",
+                  name: "Hemanth Tenneti",
+                },
+              },
+              {
+                "@type": "CreativeWork",
+                name: "whtrapp",
+                description:
+                  "A sleek, minimalistic weather site delivering precise forecasts in a clean design.",
+                image: "https://10eti.me/thumbnails/whtrapp.png",
+                url: "https://whtrapp.github.io/",
+                author: {
+                  "@type": "Person",
+                  name: "Hemanth Tenneti",
+                },
+              },
+            ],
+          })}
+        </script>
         <div className="absolute top-0 left-0 h-full  bg-[url(/backgroundnoise.png)] mix-blend-soft-light opacity-75 w-full"></div>
         <div className=" h-48 overflow-hidden flex items-center justify-center">
           <marquee
@@ -384,13 +507,14 @@ export default function HomePage() {
 
           <div className="relative flex w-full max-w-[800px] touch-pan-y overflow-hidden md:touch-auto">
             <div
+              ref={sliderTrackRef}
               className="slider-track flex w-full transition-transform duration-500 ease-out"
               style={{
                 transform: `translateX(-${currentProjectIndex * 100}%)`,
               }}>
-              {projects.map(project => (
+              {[...projects, ...projects, ...projects].map((project, idx) => (
                 <div
-                  key={project.title}
+                  key={`${project.title}-${idx}`}
                   className="flex w-full shrink-0 justify-center">
                   <SliderItem
                     title={project.title}
@@ -431,15 +555,29 @@ export default function HomePage() {
             <div
               key={index}
               className={`h-2 w-2 rounded-full ${
-                index === currentProjectIndex ? "bg-[#F5EAD5]" : "bg-[#696969]"
+                index === currentProjectIndex % projectCount ?
+                  "bg-[#F5EAD5]"
+                : "bg-[#696969]"
               }`}
             />
           ))}
         </div>
       </section>
       <section id="contact" className="relative">
+        {/* Contact Schema Markup */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ContactPoint",
+            telephone: "",
+            email: "hemanth10etii@gmail.com",
+            contactType: "General Contact",
+            url: "https://10eti.me",
+            availableLanguage: ["en"],
+          })}
+        </script>
         <div className="absolute top-0 left-0 h-full w-full bg-[url(/backgroundnoise.png)] mix-blend-soft-light opacity-75"></div>
-        <div className="relative mx-4 rounded-t-4xl border-1 border-b-0 border-[#F5EAD5] px-6 pt-12 pb-10 sm:mx-6 sm:px-10 lg:mx-10 lg:px-14 xl:mx-16">
+        <div className="relative mx-4 rounded-t-4xl border border-b-0 border-[#F5EAD5] px-6 pt-12 pb-10 sm:mx-6 sm:px-10 lg:mx-10 lg:px-14 xl:mx-16">
           <h1 className="mb-14 text-center text-3xl font-bold sm:text-4xl">
             contact
           </h1>
@@ -467,7 +605,8 @@ export default function HomePage() {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex flex-col items-start justify-between gap-3 text-lg font-medium sm:flex-row sm:items-center sm:gap-6 sm:text-xl lg:text-2xl transition-opacity hover:opacity-70">
+                className="flex flex-col items-start justify-between gap-3 text-lg font-medium sm:flex-row sm:items-center sm:gap-6 sm:text-xl lg:text-2xl transition-opacity hover:opacity-70"
+                title={`Contact Hemanth Tenneti via ${label}`}>
                 <span className="shrink-0 lowercase">{label}</span>
                 <div className="hidden grow border-t-2 border-dotted border-[#F5EAD5] sm:block"></div>
                 <span className="break-all text-right sm:text-left">
@@ -478,18 +617,26 @@ export default function HomePage() {
           </div>
 
           <footer className="relative mt-16 pb-4">
-            <hr className="mx-auto mb-5 w-full max-w-5xl"></hr>
+            <hr className="mx-auto mb-5 w-full max-w-5xl" />
             <div className="mx-auto flex flex-col items-center justify-between gap-4 text-center lowercase text-sm font-bold sm:text-base md:text-lg lg:text-xl lg:flex-row lg:text-left">
-              <h1>© 2025 Hemanth Tenneti.</h1>
-              <div className="flex flex-wrap items-center justify-center gap-4 text-[#F5EAD5]">
-                <a href="https://github.com/HemanthTenneti" target="_blank">
+              <p>© 2025 Hemanth Tenneti. All rights reserved.</p>
+              <nav className="flex flex-wrap items-center justify-center gap-4 text-[#F5EAD5]">
+                <a
+                  href="https://github.com/HemanthTenneti"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="Visit Hemanth's GitHub profile">
                   GitHub
                 </a>
-                <span>|</span>
-                <a href="https://linkedin.com/in/hemanth10eti" target="_blank">
+                <span aria-hidden="true">|</span>
+                <a
+                  href="https://linkedin.com/in/hemanth10eti"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="Visit Hemanth's LinkedIn profile">
                   LinkedIn
                 </a>
-              </div>
+              </nav>
             </div>
           </footer>
         </div>
@@ -497,9 +644,9 @@ export default function HomePage() {
       <button
         onClick={scrollToTop}
         className={`fixed bottom-8 right-8 bg-[#F5EAD5] text-[#20201E] w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-[#e5d9c4] transition-all duration-500 z-50 transform ${
-          showScrollTop
-            ? "opacity-100 translate-y-0"
-            : "opacity-0 translate-y-5 pointer-events-none"
+          showScrollTop ?
+            "opacity-100 translate-y-0"
+          : "opacity-0 translate-y-5 pointer-events-none"
         }`}
         aria-label="Scroll to top">
         <svg
