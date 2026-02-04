@@ -20,19 +20,20 @@ export default function HomePage() {
         hostedUrl: "https://inculcate.in",
       },
       {
-        title: "admiro",
-        description: "",
-        image: "",
-        codeUrl: "",
-        hostedUrl: "",
+        title: "AdMiro",
+        description:
+          "AdMiro is a full-stack advertisement management system built for modern digital signage. It enables centralized control of multiple screens with flexible scheduling, real-time content rotation, and seamless device management. The platform combines a secure backend with an intuitive frontend, allowing users to create playlists, pair devices, and deploy ads efficiently. Designed with scalability and modularity in mind, AdMiro supports rapid feature expansion while maintaining reliable performance across distributed displays.",
+        image: "/thumbnails/admiro.png",
+        codeUrl: "https://github.com/HemanthTenneti/AdMiro",
+        hostedUrl: "https://admiro-app.vercel.app",
       },
       {
-        title: "subtract",
+        title: "Vyapaar India",
         description:
-          "An AI-integrated tool that summarizes and transcribes video content from platforms like YouTube, Instagram, and more. Designed for both long-form and short-form media, with a clean, efficient user experience.",
-        image: "/thumbnails/subtract.png",
-        codeUrl: "https://github.com/HemanthTenneti/subtract-frontend",
-        hostedUrl: "https://subtract.10eti.me",
+          "Vyapaar India is a backend-driven classifieds platform designed to support scalable business listings and discovery across categories. Built with a focus on performance and reliability, it enables efficient search, listing management, and secure user operations. The system is architected to handle high-volume queries and structured data, making it suitable for marketplace-style applications where fast retrieval, clean data modeling, and robust authentication are essential. Designed for extensibility.",
+        image: "/thumbnails/vyapaarindia.png",
+        codeUrl: "#",
+        hostedUrl: "https://vyapaarindia.in",
       },
       {
         title: "File Sorter",
@@ -41,14 +42,6 @@ export default function HomePage() {
         image: "/thumbnails/filesorter.png",
         codeUrl: "https://github.com/HemanthTenneti/FileSorter",
         hostedUrl: "https://github.com/HemanthTenneti/FileSorter",
-      },
-      {
-        title: "whtrapp",
-        description:
-          "A sleek, minimalistic weather site delivering precise forecasts in a clean design. It presents essential data without distractions, focusing on visual elegance and accurate information for everyday weather checks.",
-        image: "/thumbnails/whtrapp.png",
-        codeUrl: "https://github.com/HemanthTenneti/whtrapp.github.io",
-        hostedUrl: "https://whtrapp.github.io/",
       },
     ],
     [],
