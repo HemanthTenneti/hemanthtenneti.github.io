@@ -1,7 +1,7 @@
 {
   "name": "Hemanth Tenneti Portfolio",
   "short_name": "Hemanth",
-  "description": "Portfolio of Hemanth Tenneti - Full Stack Developer showcasing AI projects and innovative tech solutions",
+  "description": "Portfolio of Hemanth Tenneti - full-stack developer and data analytics practitioner showcasing software, automation, and business analytics projects",
   "start_url": "https://10eti.me",
   "scope": "/",
   "display": "standalone",
@@ -81,7 +81,7 @@
     {
       "name": "Projects",
       "short_name": "Projects",
-      "description": "View all projects",
+      "description": "View software, automation, and data analytics projects",
       "url": "https://10eti.me#projects",
       "icons": [
         {

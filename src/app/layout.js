@@ -3,16 +3,17 @@ import Head from "next/head";
 import NavBar from "./components/NavBar";
 
 export const metadata = {
-  title: "Hemanth Tenneti | Full Stack Developer & Portfolio",
+  metadataBase: new URL("https://10eti.me"),
+  title: "Hemanth Tenneti | Full Stack & Data Analytics Portfolio",
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
     apple: "/favicon.svg",
   },
   description:
-    "Portfolio of Hemanth Tenneti - Full Stack Developer. Showcasing innovative projects in AI, web development, and modern tech solutions.",
+    "Portfolio of Hemanth Tenneti - full-stack developer and data analytics practitioner showcasing software, automation, and business analytics projects.",
   keywords:
-    "Hemanth Tenneti, Portfolio, Full Stack Developer, Web Developer, AI Projects, Software Engineer, 10eti, in.culcate, subtract",
+    "Hemanth Tenneti, Portfolio, Full Stack Developer, Data Analytics, Business Analytics, Tableau, Python, Web Developer, Software Engineer, 10eti",
   authors: [
     {
       name: "Hemanth Tenneti",
@@ -36,9 +37,9 @@ export const metadata = {
     canonical: "https://10eti.me",
   },
   openGraph: {
-    title: "Hemanth Tenneti | Full Stack Developer & Portfolio",
+    title: "Hemanth Tenneti | Full Stack & Data Analytics Portfolio",
     description:
-      "Portfolio of Hemanth Tenneti - Full Stack Developer. Showcasing innovative projects in AI, web development, and modern tech solutions.",
+      "Portfolio of Hemanth Tenneti - full-stack developer and data analytics practitioner showcasing software, automation, and business analytics projects.",
     url: "https://10eti.me",
     siteName: "Hemanth Tenneti Portfolio",
     type: "website",
@@ -48,23 +49,23 @@ export const metadata = {
         url: "/facepfp.png",
         width: 553,
         height: 828,
-        alt: "Hemanth Tenneti - Full Stack Developer",
+        alt: "Hemanth Tenneti - Full Stack Developer and Data Analytics Practitioner",
         type: "image/png",
       },
       {
         url: "https://10eti.me/facepfp.png",
         width: 553,
         height: 828,
-        alt: "Hemanth Tenneti - Full Stack Developer",
+        alt: "Hemanth Tenneti - Full Stack Developer and Data Analytics Practitioner",
         type: "image/png",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Hemanth Tenneti | Full Stack Developer",
+    title: "Hemanth Tenneti | Full Stack & Data Analytics",
     description:
-      "Portfolio showcasing AI projects, web development, and innovative tech solutions",
+      "Portfolio showcasing software, automation, and data analytics projects",
     images: ["/facepfp.png"],
     creator: "@10eti",
     site: "@10eti",
@@ -78,16 +79,17 @@ export const metadata = {
     telephone: false,
     email: false,
   },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 5,
-    userScalable: true,
-  },
   verification: {
     google: "google-site-verification-code-here",
     yandex: "yandex-verification-code-here",
   },
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
 };
 
 export default function RootLayout({ children }) {
@@ -104,11 +106,11 @@ export default function RootLayout({ children }) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta
           name="description"
-          content="Portfolio of Hemanth Tenneti - Full Stack Developer showcasing AI projects and innovative tech solutions."
+          content="Portfolio of Hemanth Tenneti - full-stack developer and data analytics practitioner showcasing software, automation, and business analytics projects."
         />
         <meta
           name="keywords"
-          content="Hemanth Tenneti, Portfolio, Full Stack Developer, Web Developer, AI, Software Engineer, 10eti"
+          content="Hemanth Tenneti, Portfolio, Full Stack Developer, Data Analytics, Business Analytics, Tableau, Python, Web Developer, Software Engineer, 10eti"
         />
         <meta name="author" content="Hemanth Tenneti" />
         <meta name="copyright" content="Hemanth Tenneti" />
@@ -144,9 +146,9 @@ export default function RootLayout({ children }) {
             name: "Hemanth Tenneti",
             url: "https://10eti.me",
             image: "https://10eti.me/facepfp.png",
-            jobTitle: "Full Stack Developer",
+            jobTitle: "Full Stack Developer and Data Analytics Practitioner",
             description:
-              "Full Stack Developer specializing in AI, web development, and modern tech solutions",
+              "Full-stack developer and data analytics practitioner building software, automation, dashboards, and business analytics projects",
             sameAs: [
               "https://linkedin.com/in/hemanthtenneti",
               "https://github.com/HemanthTenneti",
@@ -156,6 +158,10 @@ export default function RootLayout({ children }) {
               "Web Development",
               "AI Integration",
               "Full Stack Development",
+              "Data Analytics",
+              "Business Analytics",
+              "Financial Modeling",
+              "Tableau",
               "JavaScript",
               "React",
               "Next.js",
@@ -177,7 +183,7 @@ export default function RootLayout({ children }) {
             url: "https://10eti.me",
             logo: "https://10eti.me/favicon.svg",
             description:
-              "Portfolio showcasing Full Stack Development and AI projects",
+              "Portfolio showcasing full-stack development, automation, and data analytics projects",
             foundingDate: "2023",
             sameAs: [
               "https://linkedin.com/in/hemanthtenneti",
@@ -194,7 +200,7 @@ export default function RootLayout({ children }) {
             "@type": "WebSite",
             name: "Hemanth Tenneti Portfolio",
             url: "https://10eti.me",
-            description: "Full Stack Developer Portfolio",
+            description: "Full Stack and Data Analytics Portfolio",
             potentialAction: {
               "@type": "SearchAction",
               target: {
@@ -211,18 +217,18 @@ export default function RootLayout({ children }) {
         <meta property="og:url" content="https://10eti.me" />
         <meta
           property="og:title"
-          content="Hemanth Tenneti | Full Stack Developer & Portfolio"
+          content="Hemanth Tenneti | Full Stack & Data Analytics Portfolio"
         />
         <meta
           property="og:description"
-          content="Portfolio of Hemanth Tenneti - Full Stack Developer showcasing AI projects and innovative tech solutions."
+          content="Portfolio of Hemanth Tenneti - full-stack developer and data analytics practitioner showcasing software, automation, and business analytics projects."
         />
         <meta property="og:image" content="https://10eti.me/facepfp.png" />
         <meta property="og:image:width" content="553" />
         <meta property="og:image:height" content="828" />
         <meta
           property="og:image:alt"
-          content="Hemanth Tenneti - Full Stack Developer"
+          content="Hemanth Tenneti - Full Stack Developer and Data Analytics Practitioner"
         />
         <meta property="og:site_name" content="Hemanth Tenneti Portfolio" />
         <meta property="og:locale" content="en_US" />
@@ -232,11 +238,11 @@ export default function RootLayout({ children }) {
         <meta name="twitter:url" content="https://10eti.me" />
         <meta
           name="twitter:title"
-          content="Hemanth Tenneti | Full Stack Developer"
+          content="Hemanth Tenneti | Full Stack & Data Analytics"
         />
         <meta
           name="twitter:description"
-          content="Portfolio showcasing AI projects, web development, and innovative tech solutions"
+          content="Portfolio showcasing software, automation, and data analytics projects"
         />
         <meta name="twitter:image" content="https://10eti.me/facepfp.png" />
         <meta name="twitter:creator" content="@10eti" />
