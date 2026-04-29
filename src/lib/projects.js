@@ -167,6 +167,7 @@ export const projects = [
     eyebrow: "finance analytics",
     description:
       "DCF-based sensitivity analysis evaluating whether Adani Total Gas appeared overvalued or undervalued under WACC and terminal growth assumptions.",
+    image: "/data-thumbnails/SensitivityAnalysis1.png",
     hostedUrl: "/portfolio.pdf",
     hostedLabel: "Case study",
     categoryIds: ["data-analytics"],
@@ -174,6 +175,30 @@ export const projects = [
     tags: ["Excel", "EDA"],
     metrics: ["~2,456.69 Cr intrinsic estimate", "WACC/g sensitivity", "risk signal audit"],
     assets: [
+      {
+        type: "image",
+        title: "Sensitivity analysis 1",
+        href: "/data-thumbnails/SensitivityAnalysis1.png",
+        caption: "WACC and terminal growth grid",
+      },
+      {
+        type: "image",
+        title: "Sensitivity analysis 2",
+        href: "/data-thumbnails/SensitivityAnalysis2.png",
+        caption: "valuation band compression",
+      },
+      {
+        type: "image",
+        title: "Sensitivity analysis 3",
+        href: "/data-thumbnails/SensitivityAnalysis3.png",
+        caption: "scenario spread by assumptions",
+      },
+      {
+        type: "image",
+        title: "Sensitivity analysis 4",
+        href: "/data-thumbnails/SensitivityAnalysis4.png",
+        caption: "final valuation readout",
+      },
       {
         type: "case study",
         title: "DCF valuation deck",
@@ -209,6 +234,7 @@ export const projects = [
     eyebrow: "capstone dashboard",
     description:
       "Marketplace intelligence project using the Brazilian Olist dataset to surface customer satisfaction, revenue, logistics, and regional freight drivers.",
+    image: "/data-thumbnails/olist-overview.png",
     codeUrl: "https://github.com/HemanthNST/SectionB_Group10_OlistCommerce",
     hostedUrl:
       "https://public.tableau.com/app/profile/hemanth.tenneti/viz/SectionB_Group10_OlistCommerce/Overview?publish=yes",
@@ -218,6 +244,36 @@ export const projects = [
     tags: ["Tableau", "EDA"],
     metrics: ["~100K orders", "9 relational tables", "SLA and freight recommendations"],
     assets: [
+      {
+        type: "image",
+        title: "Overview dashboard",
+        href: "/data-thumbnails/olist-overview.png",
+        caption: "portfolio landing view",
+      },
+      {
+        type: "image",
+        title: "Geography and category",
+        href: "/data-thumbnails/olist-geography-category.png",
+        caption: "regional and category breakdowns",
+      },
+      {
+        type: "image",
+        title: "Delivery performance",
+        href: "/data-thumbnails/olist-delivery-performance.png",
+        caption: "freight and SLA analysis",
+      },
+      {
+        type: "image",
+        title: "Customer satisfaction",
+        href: "/data-thumbnails/olist-customer-satisfaction.png",
+        caption: "review and rating signals",
+      },
+      {
+        type: "image",
+        title: "Retention and growth",
+        href: "/data-thumbnails/olist-retention-growth.png",
+        caption: "repeat purchase and cohort behavior",
+      },
       {
         type: "dashboard",
         title: "Tableau dashboard",
@@ -233,11 +289,48 @@ export const projects = [
     ],
   },
   {
+    id: "customer-churn-prediction",
+    title: "Customer Churn Prediction",
+    eyebrow: "telecom retention system",
+    description:
+      "A GenAI-powered customer retention workflow that combines churn prediction, risk explanation, and personalized intervention guidance.",
+    image: "/data-thumbnails/customer-churn-space.png",
+    codeUrl: "https://github.com/HemanthTenneti/CustomerChurnPredictor",
+    codeLabel: "GitHub",
+    hostedUrl: "https://huggingface.co/spaces/hemanth10etii/customer-churn-prediction",
+    hostedLabel: "Hugging Face",
+    categoryIds: ["software"],
+    visualType: "ai",
+    tags: ["gradio", "ml", "rag"],
+    metrics: ["LogReg model", "LangGraph agent", "ChromaDB / Groq"],
+    assets: [
+      {
+        type: "image",
+        title: "Hugging Face space",
+        href: "/data-thumbnails/customer-churn-space.png",
+        caption: "interactive retention dashboard",
+      },
+      {
+        type: "repo",
+        title: "prediction repository",
+        href: "https://github.com/HemanthTenneti/CustomerChurnPredictor",
+        caption: "model, agent, and app source",
+      },
+      {
+        type: "space",
+        title: "live demo",
+        href: "https://huggingface.co/spaces/hemanth10etii/customer-churn-prediction",
+        caption: "deployed Gradio interface",
+      },
+    ],
+  },
+  {
     id: "cafe-analysis",
     title: "Cafe Sales & Operations Analytics",
     eyebrow: "retail operations",
     description:
       "Transactional cafe sales analysis identifying revenue drivers, customer behavior patterns, peak windows, and low-performing menu items.",
+    image: "/data-thumbnails/cafe-analysis-1.webp",
     codeUrl: "https://github.com/HemanthTenneti/SectionB_Group1_CafeAnalysis",
     hostedUrl: "/portfolio.pdf",
     hostedLabel: "Case study",
@@ -246,6 +339,30 @@ export const projects = [
     tags: ["Excel", "EDA"],
     metrics: ["~20-30% peak-hour lift", "~70-80% revenue concentration", "menu rationalization signals"],
     assets: [
+      {
+        type: "image",
+        title: "Cafe analysis 1",
+        href: "/data-thumbnails/cafe-analysis-1.webp",
+        caption: "sales and operations overview",
+      },
+      {
+        type: "image",
+        title: "Cafe analysis 2",
+        href: "/data-thumbnails/cafe-analysis-2.webp",
+        caption: "peak windows and menu mix",
+      },
+      {
+        type: "image",
+        title: "Cafe analysis 3",
+        href: "/data-thumbnails/cafe-analysis-3.webp",
+        caption: "category and item performance",
+      },
+      {
+        type: "image",
+        title: "Cafe analysis 4",
+        href: "/data-thumbnails/cafe-analysis-4.webp",
+        caption: "final recommendations board",
+      },
       {
         type: "case study",
         title: "cafe analytics deck",
