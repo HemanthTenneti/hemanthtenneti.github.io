@@ -818,7 +818,7 @@ function DataSpecializedPortfolio({ experience }) {
             <h2>10eti</h2>
             <p>{experience.summary}</p>
             <a
-              href="/Hemanth Tenneti Resume Jan 20.pdf"
+              href="/HemanthTennetiDVAResume.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="domain-gh-resume-btn">
@@ -1400,6 +1400,7 @@ function DomainProjectVisual({ project }) {
 
 function ProjectAssetModal({ project, onClose }) {
   const assets = useMemo(() => buildProjectAssets(project), [project]);
+  const modalRef = useRef(null);
 
   useEffect(() => {
     if (!project) return undefined;
@@ -1418,6 +1419,23 @@ function ProjectAssetModal({ project, onClose }) {
     };
   }, [project, onClose]);
 
+  useEffect(() => {
+    const modal = modalRef.current;
+    if (!project || !modal) return undefined;
+
+    const stopScrollPropagation = event => {
+      event.stopPropagation();
+    };
+
+    modal.addEventListener("wheel", stopScrollPropagation, { passive: true });
+    modal.addEventListener("touchmove", stopScrollPropagation, { passive: true });
+
+    return () => {
+      modal.removeEventListener("wheel", stopScrollPropagation);
+      modal.removeEventListener("touchmove", stopScrollPropagation);
+    };
+  }, [project]);
+
   if (!project) return null;
 
   return (
@@ -1428,6 +1446,7 @@ function ProjectAssetModal({ project, onClose }) {
         if (event.target === event.currentTarget) onClose();
       }}>
       <section
+        ref={modalRef}
         className="project-modal"
         role="dialog"
         aria-modal="true"
