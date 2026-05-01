@@ -617,7 +617,7 @@ function MainPortfolio() {
           <footer className="relative mt-16 pb-4">
             <hr className="mx-auto mb-5 w-full max-w-5xl" />
             <div className="mx-auto flex flex-col items-center justify-between gap-4 text-center lowercase text-sm font-bold sm:text-base md:text-lg lg:text-xl lg:flex-row lg:text-left">
-              <p>© 2025 Hemanth Tenneti. All rights reserved.</p>
+              <p>© 2026 Hemanth Tenneti.</p>
               <nav className="flex flex-wrap items-center justify-center gap-4 text-[#F5EAD5]">
                 <a
                   href="https://github.com/HemanthTenneti"
