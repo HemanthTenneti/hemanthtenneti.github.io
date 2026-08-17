@@ -5,12 +5,7 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
-import {
-  domainExperienceMap,
-  projectTabs,
-  projects,
-  siteExperiences,
-} from "../lib/projects";
+import { domainExperienceMap, projects, siteExperiences } from "../lib/projects";
 import SliderItem from "./components/SliderItem";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -40,7 +35,6 @@ export default function HomePage() {
 }
 
 function MainPortfolio() {
-  const [activeTab, setActiveTab] = useState("all");
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
   const [selectedProject, setSelectedProject] = useState(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -49,23 +43,10 @@ function MainPortfolio() {
   const sliderRef = useRef(null);
   const projectCardRef = useRef(null);
 
-  const visibleProjects = useMemo(() => {
-    if (activeTab === "all") return projects;
-    return projects.filter(project => project.categoryIds.includes(activeTab));
-  }, [activeTab]);
-
-  const activeTabMeta = useMemo(
-    () => projectTabs.find(tab => tab.id === activeTab) || projectTabs[0],
-    [activeTab],
-  );
+  const visibleProjects = projects;
 
   const projectCount = visibleProjects.length;
   const currentProject = visibleProjects[currentProjectIndex] || visibleProjects[0];
-
-  const getTabCount = tabId => {
-    if (tabId === "all") return projects.length;
-    return projects.filter(project => project.categoryIds.includes(tabId)).length;
-  };
 
   const nextProject = useCallback(() => {
     if (projectCount <= 1) return;
@@ -78,10 +59,6 @@ function MainPortfolio() {
       prevIndex => (prevIndex - 1 + projectCount) % projectCount,
     );
   }, [projectCount]);
-
-  useEffect(() => {
-    setCurrentProjectIndex(0);
-  }, [activeTab]);
 
   useEffect(() => {
     if (projectCount > 0 && currentProjectIndex >= projectCount) {
@@ -288,7 +265,7 @@ function MainPortfolio() {
         ease: "power3.out",
       },
     );
-  }, [activeTab, currentProjectIndex]);
+  }, [currentProjectIndex]);
 
   useGSAP(() => {
     gsap.from(".project-reveal", {
@@ -421,10 +398,10 @@ function MainPortfolio() {
                 project switchboard
               </p>
               <h2 className="text-2xl font-bold lowercase text-[#F5EAD5] sm:text-3xl lg:text-[2.5rem] lg:leading-tight">
-                {activeTabMeta.heading}
+                selected work across code, systems, and analysis
               </h2>
               <p className="mt-4 max-w-2xl text-sm leading-relaxed text-[#F5EAD5]/70 sm:text-base lowercase">
-                {activeTabMeta.description}
+                a rotating shelf of shipped products, backend-heavy builds, and automation tools.
               </p>
             </div>
             <div className="project-counter-panel w-fit rounded-2xl border border-[#F5EAD5]/20 bg-[#171818]/80 px-4 py-3 lowercase">
@@ -436,36 +413,6 @@ function MainPortfolio() {
                 {String(projectCount).padStart(2, "0")}
               </strong>
             </div>
-          </div>
-
-          <div
-            className="project-reveal mt-8 flex flex-wrap gap-3"
-            role="tablist"
-            aria-label="Project categories">
-            {projectTabs.map(tab => {
-              const isActive = activeTab === tab.id;
-              return (
-                <button
-                  key={tab.id}
-                  type="button"
-                  role="tab"
-                  aria-selected={isActive}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`project-tab rounded-full border px-4 py-2 text-sm font-bold lowercase transition-all duration-300 sm:px-5 ${
-                    isActive ?
-                      "border-[#F5EAD5] bg-[#F5EAD5] text-[#20201E]"
-                    : "border-[#F5EAD5]/25 bg-[#171818]/70 text-[#F5EAD5] hover:border-[#F5EAD5]/70"
-                  }`}>
-                  <span>{tab.label}</span>
-                  <span
-                    className={`ml-2 rounded-full px-2 py-0.5 text-xs ${
-                      isActive ? "bg-[#20201E]/10" : "bg-[#F5EAD5]/10"
-                    }`}>
-                    {getTabCount(tab.id)}
-                  </span>
-                </button>
-              );
-            })}
           </div>
 
           <div
@@ -494,7 +441,7 @@ function MainPortfolio() {
 
             <div className="w-full max-w-[920px] touch-pan-y md:touch-auto">
               <div
-                key={`${activeTab}-${currentProject?.id}`}
+                key={currentProject?.id}
                 ref={projectCardRef}
                 role="button"
                 tabIndex={0}

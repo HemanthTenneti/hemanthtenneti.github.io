@@ -7,7 +7,7 @@ Hemanth Tenneti is a full-stack developer and data analytics practitioner based 
 ## Site
 
 - [Portfolio home](https://10eti.dev): overview, about, and contact information.
-- [Projects](https://10eti.dev#projects): software, automation, and data analytics projects, including in.culcate, File Sorter, AdMiro, and Vyapaar India.
+- [Projects](https://10eti.dev#projects): software and automation projects, including AdMiro, Vyapaar India, File Sorter, whtrapp, and Customer Churn Prediction.
 - [Resume (PDF)](https://10eti.dev/portfolio.pdf): downloadable resume/portfolio summary.
 - [Contact](https://10eti.dev#contact): email, GitHub, and LinkedIn.
 
