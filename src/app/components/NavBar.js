@@ -17,9 +17,6 @@ const links = [
 
 export default function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [resumeHref, setResumeHref] = useState(
-    "/Hemanth Tenneti Resume Jan 20.pdf",
-  );
 
   useEffect(() => {
     const handleResize = () => {
@@ -32,22 +29,9 @@ export default function NavBar() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  useEffect(() => {
-    const host = window.location.hostname.toLowerCase();
-    const previewMode = new URLSearchParams(window.location.search).get("site");
-
-    if (host === "data.10eti.dev" || previewMode === "data") {
-      setResumeHref("/HemanthTennetiDVAResume.pdf");
-    }
-  }, []);
-
   const handleLinkClick = () => {
     setIsMenuOpen(false);
   };
-
-  const resolvedLinks = links.map(link =>
-    link.label === "resume" ? { ...link, href: resumeHref } : link,
-  );
 
   return (
     <nav
@@ -88,7 +72,7 @@ export default function NavBar() {
       </button>
 
       <div className="hidden items-center gap-6 font-semibold text-sm min-[550px]:flex min-[650px]:text-base lg:text-xl">
-        {resolvedLinks.map(({ href, label, download }) => (
+        {links.map(({ href, label, download }) => (
           <Link
             key={href}
             href={href}
@@ -106,7 +90,7 @@ export default function NavBar() {
           : "pointer-events-none opacity-0 -translate-y-2 scale-y-95"
         }`}>
         <div className="flex flex-col gap-2 text-sm font-semibold sm:text-base text-right">
-          {resolvedLinks.map(({ href, label, download }) => (
+          {links.map(({ href, label, download }) => (
             <Link
               key={href}
               href={href}
