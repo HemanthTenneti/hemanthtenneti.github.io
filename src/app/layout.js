@@ -2,7 +2,7 @@ import "./globals.css";
 import NavBar from "./components/NavBar";
 
 export const metadata = {
-  metadataBase: new URL("https://10eti.me"),
+  metadataBase: new URL("https://10eti.dev"),
   title: "Hemanth Tenneti | Full Stack & Data Analytics Portfolio",
   manifest: "/site.webmanifest",
   icons: {
@@ -17,7 +17,7 @@ export const metadata = {
   authors: [
     {
       name: "Hemanth Tenneti",
-      url: "https://10eti.me",
+      url: "https://10eti.dev",
     },
   ],
   creator: "Hemanth Tenneti",
@@ -34,7 +34,7 @@ export const metadata = {
     },
   },
   alternates: {
-    canonical: "https://10eti.me",
+    canonical: "https://10eti.dev",
   },
   appleWebApp: {
     capable: true,
@@ -52,7 +52,7 @@ export const metadata = {
     title: "Hemanth Tenneti | Full Stack & Data Analytics Portfolio",
     description:
       "Portfolio of Hemanth Tenneti - full-stack developer and data analytics practitioner showcasing software, automation, and business analytics projects.",
-    url: "https://10eti.me",
+    url: "https://10eti.dev",
     siteName: "Hemanth Tenneti Portfolio",
     type: "website",
     locale: "en_US",
@@ -65,7 +65,7 @@ export const metadata = {
         type: "image/png",
       },
       {
-        url: "https://10eti.me/facepfp.png",
+        url: "https://10eti.dev/facepfp.png",
         width: 553,
         height: 828,
         alt: "Hemanth Tenneti - Full Stack Developer and Data Analytics Practitioner",
@@ -96,8 +96,8 @@ const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Hemanth Tenneti",
-  url: "https://10eti.me",
-  image: "https://10eti.me/facepfp.png",
+  url: "https://10eti.dev",
+  image: "https://10eti.dev/facepfp.png",
   jobTitle: "Full Stack Developer and Data Analytics Practitioner",
   description:
     "Full-stack developer and data analytics practitioner building software, automation, dashboards, and business analytics projects",
@@ -129,13 +129,13 @@ const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: "Hemanth Tenneti Portfolio",
-  url: "https://10eti.me",
+  url: "https://10eti.dev",
   description: "Full Stack and Data Analytics Portfolio",
   potentialAction: {
     "@type": "SearchAction",
     target: {
       "@type": "EntryPoint",
-      urlTemplate: "https://10eti.me?q={search_term_string}",
+      urlTemplate: "https://10eti.dev?q={search_term_string}",
     },
     "query-input": "required name=search_term_string",
   },

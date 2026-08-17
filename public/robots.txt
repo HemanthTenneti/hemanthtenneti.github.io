@@ -6,7 +6,7 @@ Disallow: /.next
 Disallow: /node_modules
 
 # Sitemaps
-Sitemap: https://10eti.me/sitemap.xml
+Sitemap: https://10eti.dev/sitemap.xml
 
 # Crawl delay for search engines
 Crawl-delay: 1

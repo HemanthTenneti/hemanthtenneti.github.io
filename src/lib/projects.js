@@ -31,13 +31,9 @@ export const projectTabs = [
 
 export const domainExperienceMap = {
   "data.10eti.dev": "data",
-  "data.10eti.me": "data",
   "web.10eti.dev": "web",
-  "web.10eti.me": "web",
   "auto.10eti.dev": "automation",
-  "auto.10eti.me": "automation",
   "automation.10eti.dev": "automation",
-  "automation.10eti.me": "automation",
 };
 
 export const siteExperiences = {
@@ -140,8 +136,6 @@ export const projects = [
     description:
       "An AI-integrated tool that summarizes and transcribes video content from platforms like YouTube, Instagram, and more with a clean, efficient workflow.",
     codeUrl: "https://github.com/HemanthTenneti/subtract-frontend",
-    hostedUrl: "https://subtract.10eti.me",
-    hostedLabel: "Live app",
     categoryIds: ["software"],
     visualType: "ai",
     tags: ["ai", "transcription", "summaries"],

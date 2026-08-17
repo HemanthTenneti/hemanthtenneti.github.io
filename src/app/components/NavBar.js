@@ -36,11 +36,7 @@ export default function NavBar() {
     const host = window.location.hostname.toLowerCase();
     const previewMode = new URLSearchParams(window.location.search).get("site");
 
-    if (
-      host === "data.10eti.dev" ||
-      host === "data.10eti.me" ||
-      previewMode === "data"
-    ) {
+    if (host === "data.10eti.dev" || previewMode === "data") {
       setResumeHref("/HemanthTennetiDVAResume.pdf");
     }
   }, []);

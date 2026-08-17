@@ -390,10 +390,10 @@ function MainPortfolio() {
               name: project.title,
               description: project.description,
               image:
-                project.image ? `https://10eti.me${project.image}` : undefined,
+                project.image ? `https://10eti.dev${project.image}` : undefined,
               url:
                 project.hostedUrl?.startsWith("/") ?
-                  `https://10eti.me${project.hostedUrl}`
+                  `https://10eti.dev${project.hostedUrl}`
                 : project.hostedUrl || project.codeUrl,
               keywords: project.tags?.join(", "),
               author: {
@@ -570,7 +570,7 @@ function MainPortfolio() {
             telephone: "",
             email: "hemanth10etii@gmail.com",
             contactType: "General Contact",
-            url: "https://10eti.me",
+            url: "https://10eti.dev",
             availableLanguage: ["en"],
           })}
         </script>
@@ -793,10 +793,10 @@ function DataSpecializedPortfolio({ experience }) {
               name: project.title,
               description: project.description,
               image:
-                project.image ? `https://10eti.me${project.image}` : undefined,
+                project.image ? `https://10eti.dev${project.image}` : undefined,
               url:
                 project.hostedUrl?.startsWith("/") ?
-                  `https://10eti.me${project.hostedUrl}`
+                  `https://10eti.dev${project.hostedUrl}`
                 : project.hostedUrl || project.codeUrl,
               keywords: project.tags?.join(", "),
               author: {
