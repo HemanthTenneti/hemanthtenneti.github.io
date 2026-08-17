@@ -1,10 +1,10 @@
 import "./globals.css";
-import Head from "next/head";
 import NavBar from "./components/NavBar";
 
 export const metadata = {
   metadataBase: new URL("https://10eti.me"),
   title: "Hemanth Tenneti | Full Stack & Data Analytics Portfolio",
+  manifest: "/site.webmanifest",
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
@@ -35,6 +35,18 @@ export const metadata = {
   },
   alternates: {
     canonical: "https://10eti.me",
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Hemanth Tenneti Portfolio",
+  },
+  formatDetection: {
+    telephone: false,
+    email: false,
+  },
+  verification: {
+    google: "UT1DM9PfW12s1s-vjZ7Qje_HcxY3cPJCQyytKBHJHv4",
   },
   openGraph: {
     title: "Hemanth Tenneti | Full Stack & Data Analytics Portfolio",
@@ -70,19 +82,6 @@ export const metadata = {
     creator: "@10eti",
     site: "@10eti",
   },
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: "black-translucent",
-    title: "Hemanth Tenneti Portfolio",
-  },
-  formatDetection: {
-    telephone: false,
-    email: false,
-  },
-  verification: {
-    google: "google-site-verification-code-here",
-    yandex: "yandex-verification-code-here",
-  },
 };
 
 export const viewport = {
@@ -90,171 +89,72 @@ export const viewport = {
   initialScale: 1,
   maximumScale: 5,
   userScalable: true,
+  themeColor: "#F5EAD5",
+};
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Hemanth Tenneti",
+  url: "https://10eti.me",
+  image: "https://10eti.me/facepfp.png",
+  jobTitle: "Full Stack Developer and Data Analytics Practitioner",
+  description:
+    "Full-stack developer and data analytics practitioner building software, automation, dashboards, and business analytics projects",
+  sameAs: [
+    "https://linkedin.com/in/hemanthtenneti",
+    "https://github.com/HemanthTenneti",
+    "https://twitter.com/10eti",
+  ],
+  knowsAbout: [
+    "Web Development",
+    "AI Integration",
+    "Full Stack Development",
+    "Data Analytics",
+    "Business Analytics",
+    "Financial Modeling",
+    "Tableau",
+    "JavaScript",
+    "React",
+    "Next.js",
+    "Python",
+  ],
+  worksFor: {
+    "@type": "Organization",
+    name: "Independent Developer",
+  },
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Hemanth Tenneti Portfolio",
+  url: "https://10eti.me",
+  description: "Full Stack and Data Analytics Portfolio",
+  potentialAction: {
+    "@type": "SearchAction",
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate: "https://10eti.me?q={search_term_string}",
+    },
+    "query-input": "required name=search_term_string",
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <Head>
-        {/* Favicon & App Icons */}
-        <link rel="apple-touch-icon" href="/favicon.svg" />
-        <link rel="icon" href="/favicon.svg" />
-        <link rel="manifest" href="/site.webmanifest" />
-
-        {/* Meta Tags */}
-        <meta name="theme-color" content="#F5EAD5" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta
-          name="description"
-          content="Portfolio of Hemanth Tenneti - full-stack developer and data analytics practitioner showcasing software, automation, and business analytics projects."
-        />
-        <meta
-          name="keywords"
-          content="Hemanth Tenneti, Portfolio, Full Stack Developer, Data Analytics, Business Analytics, Tableau, Python, Web Developer, Software Engineer, 10eti"
-        />
-        <meta name="author" content="Hemanth Tenneti" />
-        <meta name="copyright" content="Hemanth Tenneti" />
-        <meta name="og:locale" content="en_US" />
-
-        {/* Mobile Web App */}
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta
-          name="apple-mobile-web-app-status-bar-style"
-          content="black-translucent"
-        />
-        <meta name="apple-mobile-web-app-title" content="Hemanth Tenneti" />
-        <meta name="mobile-web-app-capable" content="yes" />
-
-        {/* DNS Prefetch & Preconnect */}
-        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-
-        {/* Canonical URL */}
-        <link rel="canonical" href="https://10eti.me" />
-
-        {/* Google Analytics & Verification */}
-        <meta
-          name="google-site-verification"
-          content="UT1DM9PfW12s1s-vjZ7Qje_HcxY3cPJCQyytKBHJHv4"
-        />
-
-        {/* Structured Data (JSON-LD) */}
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Person",
-            name: "Hemanth Tenneti",
-            url: "https://10eti.me",
-            image: "https://10eti.me/facepfp.png",
-            jobTitle: "Full Stack Developer and Data Analytics Practitioner",
-            description:
-              "Full-stack developer and data analytics practitioner building software, automation, dashboards, and business analytics projects",
-            sameAs: [
-              "https://linkedin.com/in/hemanthtenneti",
-              "https://github.com/HemanthTenneti",
-              "https://twitter.com/10eti",
-            ],
-            knowsAbout: [
-              "Web Development",
-              "AI Integration",
-              "Full Stack Development",
-              "Data Analytics",
-              "Business Analytics",
-              "Financial Modeling",
-              "Tableau",
-              "JavaScript",
-              "React",
-              "Next.js",
-              "Python",
-            ],
-            worksFor: {
-              "@type": "Organization",
-              name: "Independent Developer",
-            },
-          })}
-        </script>
-
-        {/* Organization Schema */}
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            name: "Hemanth Tenneti",
-            url: "https://10eti.me",
-            logo: "https://10eti.me/favicon.svg",
-            description:
-              "Portfolio showcasing full-stack development, automation, and data analytics projects",
-            foundingDate: "2023",
-            sameAs: [
-              "https://linkedin.com/in/hemanthtenneti",
-              "https://github.com/HemanthTenneti",
-              "https://twitter.com/10eti",
-            ],
-          })}
-        </script>
-
-        {/* Website Schema */}
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebSite",
-            name: "Hemanth Tenneti Portfolio",
-            url: "https://10eti.me",
-            description: "Full Stack and Data Analytics Portfolio",
-            potentialAction: {
-              "@type": "SearchAction",
-              target: {
-                "@type": "EntryPoint",
-                urlTemplate: "https://10eti.me?q={search_term_string}",
-              },
-              "query-input": "required name=search_term_string",
-            },
-          })}
-        </script>
-
-        {/* Open Graph Meta Tags */}
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://10eti.me" />
-        <meta
-          property="og:title"
-          content="Hemanth Tenneti | Full Stack & Data Analytics Portfolio"
-        />
-        <meta
-          property="og:description"
-          content="Portfolio of Hemanth Tenneti - full-stack developer and data analytics practitioner showcasing software, automation, and business analytics projects."
-        />
-        <meta property="og:image" content="https://10eti.me/facepfp.png" />
-        <meta property="og:image:width" content="553" />
-        <meta property="og:image:height" content="828" />
-        <meta
-          property="og:image:alt"
-          content="Hemanth Tenneti - Full Stack Developer and Data Analytics Practitioner"
-        />
-        <meta property="og:site_name" content="Hemanth Tenneti Portfolio" />
-        <meta property="og:locale" content="en_US" />
-
-        {/* Twitter Card */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:url" content="https://10eti.me" />
-        <meta
-          name="twitter:title"
-          content="Hemanth Tenneti | Full Stack & Data Analytics"
-        />
-        <meta
-          name="twitter:description"
-          content="Portfolio showcasing software, automation, and data analytics projects"
-        />
-        <meta name="twitter:image" content="https://10eti.me/facepfp.png" />
-        <meta name="twitter:creator" content="@10eti" />
-
-        {/* Performance & Security */}
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="format-detection" content="email=no" />
-
-        {/* Preload Critical Assets */}
+      <head>
         <link rel="preload" href="/facepfp.png" as="image" />
-      </Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+        />
+      </head>
       <body className="text-[#F5EAD5] bg-[#2C2C2C] font-[Switzer]">
         <div className="w-full h-full bg-[url(/backgroundnoise.png)] mix-blend-soft-light opacity-75 -z-10 bg-repeat absolute"></div>
         <NavBar />

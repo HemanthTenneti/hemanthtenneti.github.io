@@ -46,7 +46,7 @@ const nextConfig = {
       },
       // Cache images
       {
-        source: "/images/:path*",
+        source: "/:path((?:thumbnails|data-thumbnails)/.*)",
         headers: [
           {
             key: "Cache-Control",

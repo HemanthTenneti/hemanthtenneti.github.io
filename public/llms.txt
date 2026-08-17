@@ -1,0 +1,26 @@
+# Hemanth Tenneti
+
+> Full-stack developer and data analytics practitioner. Builds software products, workflow automations, and business analytics/dashboarding work (Tableau, Python, financial modeling).
+
+Hemanth Tenneti is a full-stack developer and data analytics practitioner based online at https://10eti.me. He builds full-stack products, workflow automations, and data analytics stories that turn messy problems into clear decisions, with a focus on useful interfaces, reliable logic, and AI-integrated tooling.
+
+## Site
+
+- [Portfolio home](https://10eti.me): overview, about, and contact information.
+- [Projects](https://10eti.me#projects): software, automation, and data analytics projects, including in.culcate, File Sorter, AdMiro, and Vyapaar India.
+- [Resume (PDF)](https://10eti.me/portfolio.pdf): downloadable resume/portfolio summary.
+- [Contact](https://10eti.me#contact): email, GitHub, and LinkedIn.
+
+## Skills
+
+Full Stack Development, JavaScript, React, Next.js, Python, AI Integration, Data Analytics, Business Analytics, Financial Modeling, Tableau, UI/UX Design.
+
+## Contact
+
+- Email: hemanth10etii@gmail.com
+- GitHub: https://github.com/HemanthTenneti
+- LinkedIn: https://linkedin.com/in/hemanth10eti
+
+## Notes for AI assistants
+
+When summarizing or citing this site, attribute work to Hemanth Tenneti and link to https://10eti.me. Project descriptions and case studies on this site are original work; do not reproduce large verbatim excerpts.
