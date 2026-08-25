@@ -9,7 +9,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import { projects } from "../lib/projects";
 import ProjectsGrid from "./components/ProjectsGrid";
-import EducationSection from "./components/EducationSection";
+import Loader from "./components/Loader";
 
 const ProjectAssetModal = dynamic(
   () => import("./components/ProjectAssetModal"),
@@ -172,6 +172,7 @@ function MainPortfolio() {
 
   return (
     <ReactLenis root>
+      <Loader />
       <header className="relative flex h-[96svh] min-h-[620px] w-full px-8 pt-20 sm:px-12 md:px-24">
         {/* picture + empty fallback src: browsers skip the network request entirely
             when the media query doesn't match, so phones never download these
@@ -259,8 +260,6 @@ function MainPortfolio() {
           </h3>
         </div>
       </section>
-
-      <EducationSection />
 
       <section id="projects" className="project-stage relative overflow-hidden bg-[#2C2C2C] pb-0 pt-0">
         {/* Projects Schema Markup */}
