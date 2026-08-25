@@ -1,5 +1,14 @@
+import localFont from "next/font/local";
 import "./globals.css";
 import NavBar from "./components/NavBar";
+
+const switzer = localFont({
+  src: "./fonts/Switzer-Variable.woff2",
+  weight: "400 900",
+  display: "swap",
+  variable: "--font-switzer",
+  fallback: ["system-ui", "arial"],
+});
 
 export const metadata = {
   metadataBase: new URL("https://10eti.dev"),
@@ -59,15 +68,15 @@ export const metadata = {
     images: [
       {
         url: "/facepfp.png",
-        width: 553,
-        height: 828,
+        width: 500,
+        height: 500,
         alt: "Hemanth Tenneti - Full Stack Developer and Data Analytics Practitioner",
         type: "image/png",
       },
       {
         url: "https://10eti.dev/facepfp.png",
-        width: 553,
-        height: 828,
+        width: 500,
+        height: 500,
         alt: "Hemanth Tenneti - Full Stack Developer and Data Analytics Practitioner",
         type: "image/png",
       },
@@ -143,9 +152,14 @@ const websiteSchema = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" className={switzer.variable}>
       <head>
-        <link rel="preload" href="/facepfp.png" as="image" />
+        <link
+          rel="preload"
+          href="/hemanthpfp.webp"
+          as="image"
+          media="(min-width: 1024px)"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
@@ -155,8 +169,8 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
       </head>
-      <body className="text-[#F5EAD5] bg-[#2C2C2C] font-[Switzer]">
-        <div className="w-full h-full bg-[url(/backgroundnoise.png)] mix-blend-soft-light opacity-75 -z-10 bg-repeat absolute"></div>
+      <body className="text-[#F5EAD5] bg-[#2C2C2C] font-[var(--font-switzer)]">
+        <div className="w-full h-full bg-[url(/backgroundnoise.webp)] mix-blend-soft-light opacity-75 -z-10 bg-repeat absolute"></div>
         <NavBar />
         {children}
       </body>

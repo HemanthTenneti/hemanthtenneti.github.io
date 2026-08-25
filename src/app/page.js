@@ -1,12 +1,20 @@
 "use client";
-import { useState, useEffect, useRef, useMemo, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
+import dynamic from "next/dynamic";
+import Image from "next/image";
 import { ReactLenis, useLenis } from "lenis/react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import { projects } from "../lib/projects";
-import SliderItem from "./components/SliderItem";
+import ProjectsGrid from "./components/ProjectsGrid";
+import EducationSection from "./components/EducationSection";
+
+const ProjectAssetModal = dynamic(
+  () => import("./components/ProjectAssetModal"),
+  { ssr: false },
+);
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,36 +23,9 @@ export default function HomePage() {
 }
 
 function MainPortfolio() {
-  const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
   const [selectedProject, setSelectedProject] = useState(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
   const scrollHintRef = useRef(null);
-  const sliderRef = useRef(null);
-  const projectCardRef = useRef(null);
-
-  const visibleProjects = projects;
-
-  const projectCount = visibleProjects.length;
-  const currentProject = visibleProjects[currentProjectIndex] || visibleProjects[0];
-
-  const nextProject = useCallback(() => {
-    if (projectCount <= 1) return;
-    setCurrentProjectIndex(prevIndex => (prevIndex + 1) % projectCount);
-  }, [projectCount]);
-
-  const prevProject = useCallback(() => {
-    if (projectCount <= 1) return;
-    setCurrentProjectIndex(
-      prevIndex => (prevIndex - 1 + projectCount) % projectCount,
-    );
-  }, [projectCount]);
-
-  useEffect(() => {
-    if (projectCount > 0 && currentProjectIndex >= projectCount) {
-      setCurrentProjectIndex(0);
-    }
-  }, [currentProjectIndex, projectCount]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -90,60 +71,6 @@ function MainPortfolio() {
       });
     };
   }, []);
-
-  useEffect(() => {
-    const checkIsMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
-    checkIsMobile();
-    window.addEventListener("resize", checkIsMobile);
-
-    return () => window.removeEventListener("resize", checkIsMobile);
-  }, []);
-
-  useEffect(() => {
-    const sliderEl = sliderRef.current;
-    if (!isMobile || !sliderEl || projectCount <= 1) return;
-
-    let touchStartX = 0;
-    let touchEndX = 0;
-
-    const onTouchStart = event => {
-      touchStartX = event.touches[0].clientX;
-      touchEndX = touchStartX;
-    };
-
-    const onTouchMove = event => {
-      touchEndX = event.touches[0].clientX;
-    };
-
-    const onTouchEnd = () => {
-      const threshold = 50;
-      const distance = touchEndX - touchStartX;
-
-      if (Math.abs(distance) > threshold) {
-        if (distance < 0) {
-          nextProject();
-        } else {
-          prevProject();
-        }
-      }
-
-      touchStartX = 0;
-      touchEndX = 0;
-    };
-
-    sliderEl.addEventListener("touchstart", onTouchStart, { passive: true });
-    sliderEl.addEventListener("touchmove", onTouchMove, { passive: true });
-    sliderEl.addEventListener("touchend", onTouchEnd, { passive: true });
-
-    return () => {
-      sliderEl.removeEventListener("touchstart", onTouchStart);
-      sliderEl.removeEventListener("touchmove", onTouchMove);
-      sliderEl.removeEventListener("touchend", onTouchEnd);
-    };
-  }, [isMobile, projectCount, nextProject, prevProject]);
 
   useGSAP(() => {
     const scrollHint = scrollHintRef.current;
@@ -224,28 +151,10 @@ function MainPortfolio() {
       stagger: 0.1,
       ease: "power2.EaseInOut",
     });
-  });
+  }, []);
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
   useLenis(() => {});
-
-  useGSAP(() => {
-    const projectCard = projectCardRef.current;
-    if (!projectCard || !currentProject) return;
-
-    gsap.fromTo(
-      projectCard,
-      { opacity: 0, y: 24, scale: 0.98, rotateX: 4 },
-      {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        rotateX: 0,
-        duration: 0.55,
-        ease: "power3.out",
-      },
-    );
-  }, [currentProjectIndex]);
 
   useGSAP(() => {
     gsap.from(".project-reveal", {
@@ -264,24 +173,42 @@ function MainPortfolio() {
   return (
     <ReactLenis root>
       <header className="relative flex h-[96svh] min-h-[620px] w-full px-8 pt-20 sm:px-12 md:px-24">
-        <img
-          src="/circleglow.png"
-          alt="Decorative gradient circle glow background effect"
-          className="pointer-events-none absolute bottom-0 left-0 z-0 hidden object-cover opacity-45 lg:block"
-          loading="lazy"
-        />
-        <img
-          src="/rayglow.png"
+        {/* picture + empty fallback src: browsers skip the network request entirely
+            when the media query doesn't match, so phones never download these
+            desktop-only decorative images (unlike a plain <img>, which always fetches
+            regardless of `hidden`/display:none). */}
+        <picture className="pointer-events-none absolute bottom-0 left-0 z-0 hidden opacity-45 lg:block">
+          <source media="(min-width: 1024px)" srcSet="/circleglow.webp" />
+          <img
+            width={800}
+            height={733}
+            alt="Decorative gradient circle glow background effect"
+            className="object-cover"
+            src=""
+            decoding="async"
+          />
+        </picture>
+        <Image
+          src="/rayglow.webp"
+          width={700}
+          height={692}
           alt="Decorative ray glow background effect"
           className="pointer-events-none absolute -top-32 right-0 z-0 object-cover opacity-30"
           loading="lazy"
+          decoding="async"
+          sizes="700px"
         />
-        <img
-          className="header-image relative z-10 hidden lg:block"
-          src="/hemanthpfp.png"
-          alt="Hemanth Tenneti - Full Stack Developer and Data Analytics Practitioner"
-          loading="lazy"
-        />
+        <picture className="header-image relative z-10 hidden aspect-[1203/1800] lg:block">
+          <source media="(min-width: 1024px)" srcSet="/hemanthpfp.webp" />
+          <img
+            width={1203}
+            height={1800}
+            alt="Hemanth Tenneti - Full Stack Developer and Data Analytics Practitioner"
+            src=""
+            fetchPriority="high"
+            decoding="async"
+          />
+        </picture>
         <div className="relative z-10 flex flex-col grow justify-center items-center lg:items-end">
           <div className="text-center lg:text-right w-fit lg:w-full">
             <h1 className="heading-text text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#20201E] font-bold">
@@ -321,7 +248,7 @@ function MainPortfolio() {
       <section
         id="about"
         className="about-cut px-6 py-14 pt-20 sm:px-10 sm:py-16 sm:pt-24 md:px-16 md:py-20 md:pt-28 lg:p-20 lg:pt-28 bg-[#2C2C2C] relative z-20">
-        <div className="absolute top-0 left-0 h-full w-full bg-[url(/backgroundnoise.png)] mix-blend-soft-light opacity-55"></div>
+        <div className="absolute top-0 left-0 h-full w-full bg-[url(/backgroundnoise.webp)] mix-blend-soft-light opacity-55"></div>
         <div className="relative z-10 max-w-4xl mx-auto">
           <h3 className="about-text w-full text-lg sm:text-xl md:text-2xl lg:text-[1.65rem] text-justify sm:text-center font-semibold leading-relaxed text-[#F5EAD5] lowercase">
             Driven by music and a love for clean, purposeful systems, I build
@@ -332,6 +259,8 @@ function MainPortfolio() {
           </h3>
         </div>
       </section>
+
+      <EducationSection />
 
       <section id="projects" className="project-stage relative overflow-hidden bg-[#2C2C2C] pb-0 pt-0">
         {/* Projects Schema Markup */}
@@ -360,7 +289,7 @@ function MainPortfolio() {
             })),
           })}
         </script>
-        <div className="absolute top-0 left-0 h-full bg-[url(/backgroundnoise.png)] mix-blend-soft-light opacity-55 w-full"></div>
+        <div className="absolute top-0 left-0 h-full bg-[url(/backgroundnoise.webp)] mix-blend-soft-light opacity-55 w-full"></div>
         <div className="project-marquee-wrap h-36 overflow-hidden flex items-center justify-center">
           <div className="project-marquee bg-[#F5EAD5] text-[#20201E] font-bold">
             <div className="project-marquee-track">
@@ -381,110 +310,16 @@ function MainPortfolio() {
                 selected work across code, systems, and analysis
               </h2>
               <p className="mt-4 max-w-2xl text-sm leading-relaxed text-[#F5EAD5]/70 sm:text-base lowercase">
-                a rotating shelf of shipped products, backend-heavy builds, and automation tools.
+                shipped products, backend-heavy builds, and automation tools — click any tile for the full story.
               </p>
-            </div>
-            <div className="project-counter-panel w-fit rounded-2xl border border-[#F5EAD5]/20 bg-[#171818]/80 px-4 py-3 lowercase">
-              <span className="block text-xs font-bold uppercase text-[#F0DFC0]/60">
-                viewing
-              </span>
-              <strong className="mt-1 block text-xl text-[#F5EAD5]">
-                {String(currentProjectIndex + 1).padStart(2, "0")} /{" "}
-                {String(projectCount).padStart(2, "0")}
-              </strong>
             </div>
           </div>
 
-          <div
-            ref={sliderRef}
-            className="project-reveal mt-12 flex w-full items-center justify-center gap-4 md:gap-8">
-            <button
-              type="button"
-              onClick={prevProject}
-              disabled={projectCount <= 1}
-              className="project-nav-button hidden h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#F5EAD5] text-[#20201E] transition-all hover:-translate-x-1 hover:bg-[#e5d9c4] disabled:cursor-not-allowed disabled:opacity-40 md:flex"
-              aria-label="Previous project">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.8"
-                stroke="currentColor"
-                className="size-5">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M15.75 19.5 8.25 12l7.5-7.5"
-                />
-              </svg>
-            </button>
-
-            <div className="w-full max-w-[920px] touch-pan-y md:touch-auto">
-              <div
-                key={currentProject?.id}
-                ref={projectCardRef}
-                role="button"
-                tabIndex={0}
-                onClick={() => setSelectedProject(currentProject)}
-                onKeyDown={event => {
-                  if (event.key === "Enter" || event.key === " ") {
-                    event.preventDefault();
-                    setSelectedProject(currentProject);
-                  }
-                }}
-                className="project-card-shell cursor-pointer rounded-[2rem] p-[1px]"
-                aria-label={`Open ${currentProject?.title} project details`}>
-                {currentProject && <SliderItem project={currentProject} />}
-              </div>
-
-              <div className="mt-5 flex flex-col items-center justify-between gap-4 sm:flex-row">
-                <div className="flex justify-center gap-2">
-                  {visibleProjects.map((project, index) => (
-                    <button
-                      key={project.id}
-                      type="button"
-                      onClick={() => setCurrentProjectIndex(index)}
-                      className={`h-2.5 rounded-full transition-all duration-300 ${
-                        index === currentProjectIndex ?
-                          "w-8 bg-[#F5EAD5]"
-                        : "w-2.5 bg-[#696969] hover:bg-[#F0DFC0]"
-                      }`}
-                      aria-label={`Show ${project.title}`}
-                    />
-                  ))}
-                </div>
-                <div className="flex flex-wrap items-center justify-center gap-2 text-xs font-bold uppercase text-[#F5EAD5]/60">
-                  {currentProject?.tags?.map(tag => (
-                    <span
-                      key={tag}
-                      className="rounded-full border border-[#F5EAD5]/15 px-3 py-1">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <button
-              type="button"
-              onClick={nextProject}
-              disabled={projectCount <= 1}
-              className="project-nav-button hidden h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#F5EAD5] text-[#20201E] transition-all hover:translate-x-1 hover:bg-[#e5d9c4] disabled:cursor-not-allowed disabled:opacity-40 md:flex"
-              aria-label="Next project">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.8"
-                stroke="currentColor"
-                className="size-5">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="m8.25 4.5 7.5 7.5-7.5 7.5"
-                />
-              </svg>
-            </button>
+          <div className="mt-12">
+            <ProjectsGrid
+              projects={projects}
+              onSelect={project => setSelectedProject(project)}
+            />
           </div>
         </div>
       </section>
@@ -501,7 +336,7 @@ function MainPortfolio() {
             availableLanguage: ["en"],
           })}
         </script>
-        <div className="absolute top-0 left-0 h-full w-full bg-[url(/backgroundnoise.png)] mix-blend-soft-light opacity-55"></div>
+        <div className="absolute top-0 left-0 h-full w-full bg-[url(/backgroundnoise.webp)] mix-blend-soft-light opacity-55"></div>
         <div className="relative mx-4 rounded-t-4xl border border-b-0 border-[#F5EAD5] px-6 pt-12 pb-10 sm:mx-6 sm:px-10 lg:mx-10 lg:px-14 xl:mx-16">
           <h1 className="mb-14 text-center text-3xl font-bold sm:text-4xl">
             contact
@@ -593,171 +428,5 @@ function MainPortfolio() {
         onClose={() => setSelectedProject(null)}
       />
     </ReactLenis>
-  );
-}
-
-function ProjectAssetModal({ project, onClose }) {
-  const assets = useMemo(() => buildProjectAssets(project), [project]);
-  const modalRef = useRef(null);
-
-  useEffect(() => {
-    if (!project) return undefined;
-
-    const previousOverflow = document.body.style.overflow;
-    const handleKeyDown = event => {
-      if (event.key === "Escape") onClose();
-    };
-
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [project, onClose]);
-
-  useEffect(() => {
-    const modal = modalRef.current;
-    if (!project || !modal) return undefined;
-
-    const stopScrollPropagation = event => {
-      event.stopPropagation();
-    };
-
-    modal.addEventListener("wheel", stopScrollPropagation, { passive: true });
-    modal.addEventListener("touchmove", stopScrollPropagation, { passive: true });
-
-    return () => {
-      modal.removeEventListener("wheel", stopScrollPropagation);
-      modal.removeEventListener("touchmove", stopScrollPropagation);
-    };
-  }, [project]);
-
-  if (!project) return null;
-
-  return (
-    <div
-      className="project-modal-backdrop"
-      role="presentation"
-      onMouseDown={event => {
-        if (event.target === event.currentTarget) onClose();
-      }}>
-      <section
-        ref={modalRef}
-        className="project-modal"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="project-modal-title">
-        <button
-          type="button"
-          className="project-modal-close"
-          onClick={onClose}
-          aria-label="Close project details">
-          &times;
-        </button>
-
-        <div className="project-modal-copy">
-          <p>{project.eyebrow}</p>
-          <h2 id="project-modal-title">{project.title}</h2>
-          <span>{project.description}</span>
-        </div>
-
-        {project.metrics?.length > 0 && (
-          <div className="project-modal-metrics">
-            {project.metrics.map(metric => (
-              <span key={metric}>{metric}</span>
-            ))}
-          </div>
-        )}
-
-        <div className="project-modal-assets">
-          {assets.map(asset => (
-            <ProjectAssetItem
-              asset={asset}
-              key={`${asset.title}-${asset.href || asset.src}`}
-            />
-          ))}
-        </div>
-      </section>
-    </div>
-  );
-}
-
-function ProjectAssetItem({ asset }) {
-  const isImage =
-    asset.type === "image" ||
-    /\.(avif|gif|jpe?g|png|webp|svg)(\?.*)?$/i.test(asset.src || asset.href || "");
-
-  if (isImage && (asset.src || asset.href)) {
-    return (
-      <a
-        className="project-modal-asset project-modal-image-asset"
-        href={asset.href || asset.src}
-        target="_blank"
-        rel="noopener noreferrer">
-        <img src={asset.src || asset.href} alt={asset.alt || asset.title} />
-        <span>{asset.title}</span>
-      </a>
-    );
-  }
-
-  return (
-    <a
-      className="project-modal-asset"
-      href={asset.href}
-      target="_blank"
-      rel="noopener noreferrer">
-      <span>{asset.type || "asset"}</span>
-      <strong>{asset.title}</strong>
-      {asset.caption && <small>{asset.caption}</small>}
-    </a>
-  );
-}
-
-function buildProjectAssets(project) {
-  if (!project) return [];
-
-  const declaredAssets = project.assets || [];
-  const previewAsset =
-    project.image ?
-      [
-        {
-          type: "image",
-          title: `${project.title} preview`,
-          src: project.image,
-          alt: `${project.title} project preview`,
-        },
-      ]
-    : [];
-  const linkAssets = [
-    project.codeUrl && project.codeUrl !== "#" ?
-      {
-        type: project.codeLabel || "code",
-        title: project.codeLabel || "Code",
-        href: project.codeUrl,
-        caption: "source or project reference",
-      }
-    : null,
-    project.hostedUrl && project.hostedUrl !== "#" ?
-      {
-        type: project.hostedLabel || "link",
-        title: project.hostedLabel || "Open project",
-        href: project.hostedUrl,
-        caption: "live site, dashboard, or case study",
-      }
-    : null,
-  ].filter(Boolean);
-
-  return [...previewAsset, ...declaredAssets, ...linkAssets].filter(
-    (asset, index, allAssets) => {
-      const assetKey = asset.href || asset.src || asset.title;
-      return (
-        allAssets.findIndex(
-          candidate =>
-            (candidate.href || candidate.src || candidate.title) === assetKey,
-        ) === index
-      );
-    },
   );
 }

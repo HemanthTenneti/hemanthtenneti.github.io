@@ -1,13 +1,5 @@
 @import "tailwindcss";
 
-@font-face {
-  font-family: "Switzer";
-  src: url(./fonts/Switzer-Variable.woff2) format("woff2");
-  font-weight: 400 900;
-  font-display: swap;
-  font-style: normal;
-}
-
 .heading-text {
   text-shadow: 1px 1px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff,
     -1px 1px 0 #fff;
@@ -56,7 +48,7 @@
 .project-marquee-track {
   display: flex;
   width: max-content;
-  animation: project-marquee 24s linear infinite;
+  animation: project-marquee 48s linear infinite;
 }
 
 .project-marquee-track span {
@@ -67,67 +59,12 @@
   white-space: nowrap;
 }
 
-.project-counter-panel,
-.project-tab {
-  backdrop-filter: blur(14px);
+.project-tile {
+  transition: border-color 0.4s ease;
 }
 
-.project-card-shell {
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(
-    120deg,
-    rgba(245, 234, 213, 0.36),
-    rgba(116, 227, 196, 0.42),
-    rgba(144, 215, 255, 0.32),
-    rgba(245, 234, 213, 0.24)
-  );
-  box-shadow: none;
-  transform-style: preserve-3d;
-}
-
-.project-card-shell::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  background: linear-gradient(
-    100deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.18) 45%,
-    transparent 70%
-  );
-  transform: translateX(-115%);
-  animation: project-sweep 4.8s ease-in-out infinite;
-  pointer-events: none;
-}
-
-.slider-item {
-  position: relative;
-  z-index: 1;
-}
-
-.project-media img {
-  transform: none;
-  transition: opacity 0.7s ease;
-}
-
-.slider-item:hover .project-media img {
-  opacity: 0.94;
-}
-
-.project-scanline {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    transparent,
-    rgba(116, 227, 196, 0.14),
-    transparent
-  );
-  transform: translateY(-100%);
-  animation: scanline 4.2s linear infinite;
-  pointer-events: none;
+.project-tile:hover {
+  border-color: rgba(245, 234, 213, 0.28);
 }
 
 .analytics-visual {
@@ -260,7 +197,7 @@
   inset: 0;
   background:
     linear-gradient(rgba(245, 234, 213, 0.04), rgba(245, 234, 213, 0.04)),
-    url("/backgroundnoise.png");
+    url("/backgroundnoise.webp");
   mix-blend-mode: soft-light;
   opacity: 0.55;
   pointer-events: none;
@@ -1444,6 +1381,7 @@
 }
 
 .project-modal-image-asset {
+  position: relative;
   min-height: 18rem;
   overflow: hidden;
   padding: 0;
@@ -1488,26 +1426,6 @@
   }
   to {
     transform: translateX(-50%);
-  }
-}
-
-@keyframes project-sweep {
-  0%,
-  42% {
-    transform: translateX(-115%);
-  }
-  72%,
-  100% {
-    transform: translateX(115%);
-  }
-}
-
-@keyframes scanline {
-  0% {
-    transform: translateY(-110%);
-  }
-  100% {
-    transform: translateY(110%);
   }
 }
 
@@ -1648,8 +1566,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   .project-marquee-track,
-  .project-card-shell::before,
-  .project-scanline,
   .analytics-bars span,
   .analytics-line,
   .domain-data-bars span,

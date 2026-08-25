@@ -1,0 +1,48 @@
+export const education = [
+  {
+    id: "indus-x",
+    institution: "Indus Universal School",
+    subtitle: "Class X · CBSE",
+    location: "Hyderabad, India",
+    logo: "/education/indus-logo.webp",
+    logoWidth: 500,
+    logoHeight: 134,
+    accent: "#4E5FD1",
+    milestones: [{ label: "class x score", score: "83%" }],
+  },
+  {
+    id: "indus-xii",
+    institution: "Indus Universal School",
+    subtitle: "Class XII · CBSE",
+    location: "Hyderabad, India",
+    logo: "/education/indus-logo.webp",
+    logoWidth: 500,
+    logoHeight: 134,
+    accent: "#4E5FD1",
+    milestones: [{ label: "class xii score", score: "85%" }],
+  },
+  {
+    id: "rishihood-newton",
+    institution: "Rishihood University × Newton School of Technology",
+    subtitle: "B.Tech, Computer Science & AI · Minor in Finance",
+    location: "Sonipat, India",
+    period: "2024 – 2028",
+    logos: [
+      {
+        src: "/education/rishihood-logo.webp",
+        width: 640,
+        height: 320,
+        alt: "Rishihood University logo",
+      },
+      {
+        src: "/education/newton-logo.webp",
+        width: 512,
+        height: 512,
+        alt: "Newton School of Technology logo",
+      },
+    ],
+    accent: "#EE7B3D",
+    milestones: [{ label: "cgpa", score: "9.167" }],
+    note: "partnered institutions — degree awarded by rishihood university, program delivered by newton school of technology",
+  },
+];

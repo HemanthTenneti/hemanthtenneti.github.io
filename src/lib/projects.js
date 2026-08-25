@@ -5,7 +5,7 @@ export const projects = [
     eyebrow: "digital signage control",
     description:
       "A full-stack advertisement management system for centralized screen control, flexible scheduling, real-time content rotation, and device management.",
-    image: "/thumbnails/admiro.png",
+    image: "/thumbnails/admiro.webp",
     codeUrl: "https://github.com/HemanthTenneti/AdMiro",
     hostedUrl: "https://admiro-app.vercel.app",
     hostedLabel: "Live app",
@@ -18,7 +18,7 @@ export const projects = [
     eyebrow: "classifieds backend",
     description:
       "A backend-driven classifieds platform focused on scalable business listings, category discovery, structured data, authentication, and fast retrieval.",
-    image: "/thumbnails/vyapaarindia.png",
+    image: "/thumbnails/vyapaarindia.webp",
     hostedUrl: "https://vyapaarindia.in",
     hostedLabel: "Live site",
     tags: ["backend", "marketplace", "search"],
@@ -30,7 +30,7 @@ export const projects = [
     eyebrow: "desktop automation",
     description:
       "An extension-based file organization tool that automates folder cleanup through a minimal interface and predictable sorting rules.",
-    image: "/thumbnails/filesorter.png",
+    image: "/thumbnails/filesorter.webp",
     codeUrl: "https://github.com/HemanthTenneti/FileSorter",
     hostedUrl: "https://github.com/HemanthTenneti/FileSorter",
     hostedLabel: "Repo",
@@ -56,7 +56,7 @@ export const projects = [
     eyebrow: "telecom retention system",
     description:
       "A GenAI-powered customer retention workflow that combines churn prediction, risk explanation, and personalized intervention guidance.",
-    image: "/data-thumbnails/customer-churn-space.png",
+    image: "/data-thumbnails/customer-churn-space.webp",
     codeUrl: "https://github.com/HemanthTenneti/CustomerChurnPredictor",
     codeLabel: "GitHub",
     hostedUrl: "https://huggingface.co/spaces/hemanth10etii/customer-churn-prediction",
@@ -68,7 +68,7 @@ export const projects = [
       {
         type: "image",
         title: "Hugging Face space",
-        href: "/data-thumbnails/customer-churn-space.png",
+        href: "/data-thumbnails/customer-churn-space.webp",
         caption: "interactive retention dashboard",
       },
       {
